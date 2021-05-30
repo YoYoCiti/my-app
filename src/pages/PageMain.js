@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import "../components/Sidebar/Sidebar.css";
 
 function PageMain() {
+  /*Testing*/
   const { signout, currentUser } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
