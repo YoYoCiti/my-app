@@ -1,6 +1,8 @@
 import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import Sidebar from "../components/Sidebar/Sidebar";
+import "../components/Sidebar/Sidebar.css";
 
 function PageMain() {
   /*Testing*/
@@ -20,10 +22,13 @@ function PageMain() {
 
   return (
     <>
-      <h1>Hello World</h1>
-      <p>Current logged in user email: {currentUser.email}</p>
-      {error && <div id="errorMessage">{error}</div>}
-      <input type="button" value="Sign Out" onClick={handleLogOut} />
+      <Sidebar />
+      <div className="temp-text">
+        <h1>Hello World</h1>
+        <p>Current logged in user email: {currentUser.email}</p>
+        {error && <div id="errorMessage">{error}</div>}
+        <input type="button" value="Sign Out" onClick={handleLogOut} />
+      </div>
     </>
   );
 }
