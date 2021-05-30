@@ -1,6 +1,6 @@
 import React from "react";
-import "../components/Sidebar.css";
-import Sidebar from "../components/Sidebar";
+import "../components/Sidebar/Sidebar.css";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 function Planner() {
   return (
