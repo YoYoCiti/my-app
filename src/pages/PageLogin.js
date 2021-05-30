@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import  Box from '../components/Box'
-import "./style.css";
  
 
 
@@ -39,10 +38,8 @@ function PageLogin() {
         rel="stylesheet"
         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
       />
-      </head>
-    
-      
-      <Container className="justify-content-center" >
+    </head>
+    <Container className="justify-content-center" >
         <h2>Sign In</h2>
         <form onSubmit={handleLogIn} action="/action_page.php">
           <div class="form-group">
@@ -89,8 +86,7 @@ function PageLogin() {
             </Link>
           </div>
         </form>
-        
-      </Container>
+      </Container>  
     </>
   );
 }

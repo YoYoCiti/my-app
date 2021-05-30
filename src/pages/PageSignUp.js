@@ -39,35 +39,37 @@ function PageSignUp() {
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
         />
       </head>
-      <Container className="justify-content-center" >
+      <Container className="justify-content-center">
       <h2>Sign Up</h2>
-      <form onSubmit={handleSignUp} action="/action_page.php">
-        <div>
-          <label class="sr-only" for="email">Enter your email:</label>
-          <input class="form-control" type="email" name="email" ref={emailRef} placeholder="Enter your email"/>
-        </div>
-        <div>
-          <label class="sr-only" for="password">Create password:</label>
-          <input class="form-control" type="password" name="password" ref={passwordRef} placeholder="Create password"/>
-        </div>
-        <div>
-          <label class="sr-only" for="password-confirm">Confirm password:</label>
-          <input
-            class="form-control"
-            type="password"
-            name="password-confirm"
-            ref={passwordConfirmRef}
-            placeholder="Confirm password"
-          />
-        </div>
-        {error && <div id="errorMessage">{error}</div>}
-        <div>
-          <input type="submit" value="Confirm" disabled={loading} />
-          <Link to="/login">
-            <input type="button" value="Back to Login" />
-          </Link>
-        </div>
-      </form>
+        <form onSubmit={handleSignUp}>
+          <div class="form-group">
+            <label class="sr-only">Enter your email:</label>
+            <input class="form-control" type="email" id="email" name="email" ref={emailRef} placeholder="Enter your email"/>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="password">Create password:</label>
+            <input class="form-control" type="password" name="password" ref={passwordRef} placeholder="Create password" minlength="8"/>
+          </div>
+          <div class="form-group">
+            <label class="sr-only" for="password-confirm">Confirm password:</label>
+            <input
+              class="form-control"
+              type="password"
+              name="password-confirm"
+              ref={passwordConfirmRef}
+              placeholder="Confirm password"
+            />
+          </div>
+          {error && <div id="errorMessage">{error}</div>}
+          <div>
+            <button type="submit" value="Confirm" class="btn btn-default btn-block" disabled={loading}>Create Account</button></div>
+          <div>
+            <span>Already have an account?</span>
+            <Link to="/login" value="Back to Login">
+              Log in
+            </Link>
+          </div>
+        </form>
       </Container>
     </>
   );
