@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
 function PageMain() {
-  /*Testing*/
   const { signout, currentUser } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
