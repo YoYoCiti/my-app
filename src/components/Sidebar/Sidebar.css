@@ -27,6 +27,10 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.sidebarList #active {
+  background-color: #1565c0;
+}
+
 .sidebarList .row:hover {
   cursor: pointer;
   background-color: #1565c0;

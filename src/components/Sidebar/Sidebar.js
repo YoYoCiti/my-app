@@ -5,9 +5,6 @@ import "./Sidebar.css";
 
 function Sidebar() {
   const history = useHistory();
-  function handleRowClick(path) {
-    history.push(path);
-  }
   return (
     <div className="sidebar">
       <ul className="sidebarList">
@@ -16,7 +13,8 @@ function Sidebar() {
             <li
               key={index}
               className="row"
-              onClick={() => handleRowClick(item.path)}
+              id={history.location.pathname === item.path ? "active" : ""}
+              onClick={() => history.push(item.path)}
             >
               <span>{item.title}</span>
             </li>
