@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container } from "react-bootstrap";
 
 function PageSignUp() {
   const emailRef = useRef();
@@ -29,22 +31,33 @@ function PageSignUp() {
 
   return (
     <>
-      <h1>SignUp</h1>
-      <form onSubmit={handleSignUp}>
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+      </head>
+      <Container className="justify-content-center" >
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSignUp} action="/action_page.php">
         <div>
-          <label for="email">Enter your email:</label>
-          <input type="email" name="email" ref={emailRef} />
+          <label class="sr-only" for="email">Enter your email:</label>
+          <input class="form-control" type="email" name="email" ref={emailRef} placeholder="Enter your email"/>
         </div>
         <div>
-          <label for="password">Create password:</label>
-          <input type="password" name="password" ref={passwordRef} />
+          <label class="sr-only" for="password">Create password:</label>
+          <input class="form-control" type="password" name="password" ref={passwordRef} placeholder="Create password"/>
         </div>
         <div>
-          <label for="password-confirm">Confirm password:</label>
+          <label class="sr-only" for="password-confirm">Confirm password:</label>
           <input
+            class="form-control"
             type="password"
             name="password-confirm"
             ref={passwordConfirmRef}
+            placeholder="Confirm password"
           />
         </div>
         {error && <div id="errorMessage">{error}</div>}
@@ -55,6 +68,7 @@ function PageSignUp() {
           </Link>
         </div>
       </form>
+      </Container>
     </>
   );
 }
