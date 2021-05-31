@@ -3,9 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
-import  Box from '../components/Box'
- 
-
+import Box from "../components/Box";
 
 function PageLogin() {
   const emailRef = useRef();
@@ -31,15 +29,15 @@ function PageLogin() {
 
   return (
     <>
-    <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <link
-        rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-      />
-    </head>
-    <Container className="justify-content-center" >
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        />
+      </head>
+      <Container className="justify-content-center">
         <h2>Sign In</h2>
         <form onSubmit={handleLogIn} action="/action_page.php">
           <div class="form-group">
@@ -66,7 +64,7 @@ function PageLogin() {
               name="password"
               ref={passwordRef}
             />
-            <Link >Forgot Password?</Link>
+            <Link>Forgot Password?</Link>
           </div>
           {error && <div id="errorMessage">{error}</div>}
           <div>
@@ -86,7 +84,7 @@ function PageLogin() {
             </Link>
           </div>
         </form>
-      </Container>  
+      </Container>
     </>
   );
 }
