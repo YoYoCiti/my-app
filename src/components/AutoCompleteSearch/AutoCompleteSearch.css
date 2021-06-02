@@ -1,1 +1,16 @@
+.search-bar {
+  margin: 1rem 1rem 0rem 1rem;
+}
 
+.dropdown-list {
+  margin-left: 0rem;
+  width: 100%;
+}
+
+.dropdown {
+  position: absolute;
+  background: white;
+  width: 92%;
+  border: 1px solid #e8e8e8;
+  margin: 0rem 1rem 0rem 1rem;
+}

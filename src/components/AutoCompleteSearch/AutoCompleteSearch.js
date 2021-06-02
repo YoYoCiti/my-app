@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ModuleData } from "./ModuleData";
 import "./AutoCompleteSearch.css";
+import { Dropdown, FormControl, InputGroup } from "react-bootstrap";
 
 function AutoCompleteSearch(props) {
   const { setDisplayedModule } = props;
@@ -17,13 +18,14 @@ function AutoCompleteSearch(props) {
   }
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search for module"
-        onChange={handleSearchChange}
-        value={searchText}
-        className="search-bar"
-      />
+      <InputGroup>
+        <FormControl
+          placeholder="Search for module"
+          onChange={handleSearchChange}
+          value={searchText}
+          className="search-bar"
+        />
+      </InputGroup>
       {display && (
         <SuggestionsList
           searchText={searchText}
@@ -49,21 +51,24 @@ function SuggestionsList(props) {
   };
 
   return (
-    <>
-      <ul>
-        {filteredList.length ? (
-          filteredList.map((item, index) => {
-            return (
-              <li onClick={() => handleSelectItem(item)} key={index}>
-                {item.title}
-              </li>
-            );
-          })
-        ) : (
-          <p>Cannot find module "{searchText}"</p>
-        )}
-      </ul>
-    </>
+    <Dropdown>
+      {filteredList.length ? (
+        filteredList.map((item, index) => {
+          return (
+            <Dropdown.Item
+              as="button"
+              onClick={() => handleSelectItem(item)}
+              key={index}
+              className="dropdown-list"
+            >
+              {item.title}
+            </Dropdown.Item>
+          );
+        })
+      ) : (
+        <Dropdown.ItemText>Cannot find module "{searchText}"</Dropdown.ItemText>
+      )}
+    </Dropdown>
   );
 }
 
