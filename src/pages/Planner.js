@@ -1,14 +1,13 @@
 import React from "react";
-import "../components/Sidebar/Sidebar.css";
 import Sidebar from "../components/Sidebar/Sidebar";
+import ModuleBar from "../components/ModuleBar";
+import "./MainStyle.css";
 
 function Planner() {
   return (
     <>
       <Sidebar />
-      <div className="temp-text">
-        <h1>Planner</h1>
-      </div>
+      <ModuleBar />
     </>
   );
 }

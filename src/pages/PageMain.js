@@ -2,7 +2,6 @@ import { useAuth } from "../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
-import "../components/Sidebar/Sidebar.css";
 
 function PageMain() {
   /*Testing*/
