@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import AutoCompleteSearch from "../AutoCompleteSearch";
+import { BsX } from "react-icons/bs";
 
 import "./ModuleBar.css";
 
-function ModuleBar() {
+function ModuleBar(props) {
+  const { moduleBar, toggleModuleBar } = props;
   const [displayedModule, setDisplayedModule] = useState({
     title: "",
     description: "",
   });
   return (
-    <div className="module-bar">
+    <div className={moduleBar ? "module-bar-active" : "module-bar-off"}>
+      <BsX className="close-button" onClick={toggleModuleBar} />
       <AutoCompleteSearch setDisplayedModule={setDisplayedModule} />
       <ModuleBox displayedModule={displayedModule} />
     </div>
