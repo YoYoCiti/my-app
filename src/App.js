@@ -3,7 +3,7 @@ import PageLogin from "./pages/PageLogin";
 import PageSignUp from "./pages/PageSignUp";
 import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./config/PrivateRoute";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { deepPurple } from "@material-ui/core/colors";
 import Planner from "./pages/Planner";

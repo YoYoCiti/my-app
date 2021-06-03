@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
 import Box from "../components/Box";
 
 function PageLogin() {
@@ -32,12 +31,8 @@ function PageLogin() {
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-        />
       </head>
-      <Container className="justify-content-center">
+      <Box>
         <h2>Sign In</h2>
         <form onSubmit={handleLogIn} action="/action_page.php">
           <div class="form-group">
@@ -84,7 +79,7 @@ function PageLogin() {
             </Link>
           </div>
         </form>
-      </Container>
+      </Box>
     </>
   );
 }
