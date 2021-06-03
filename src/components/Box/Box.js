@@ -1,14 +1,8 @@
-import { Paper } from "@material-ui/core";
-
-import styles from "./Box.css";
+import "./Box.css";
 
 function Box(props) {
   const { children } = props;
-  return (
-    <Paper className={styles.box} elevation={3}>
-      {children}
-    </Paper>
-  );
+  return <div className="Box">{children}</div>;
 }
 
 export default Box;
