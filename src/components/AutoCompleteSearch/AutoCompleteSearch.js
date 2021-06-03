@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ModuleData } from "./ModuleData";
 import "./AutoCompleteSearch.css";
 import { Dropdown, FormControl, InputGroup } from "react-bootstrap";
 
 function AutoCompleteSearch(props) {
-  const { setDisplayedModule } = props;
+  const { setDisplayedModule, moduleData } = props;
   const [searchText, setSearchText] = useState("");
   const [display, setDisplay] = useState(false);
 
@@ -32,6 +31,7 @@ function AutoCompleteSearch(props) {
           setSearchText={setSearchText}
           setDisplay={setDisplay}
           setDisplayedModule={setDisplayedModule}
+          moduleData={moduleData}
         />
       )}
     </div>
@@ -39,9 +39,16 @@ function AutoCompleteSearch(props) {
 }
 
 function SuggestionsList(props) {
-  const { searchText, setSearchText, setDisplay, setDisplayedModule } = props;
-  const filteredList = ModuleData.filter(
-    (item) => item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+  const {
+    searchText,
+    setSearchText,
+    setDisplay,
+    setDisplayedModule,
+    moduleData,
+  } = props;
+  const filteredList = moduleData.filter(
+    (item) =>
+      item.moduleCode.toLowerCase().indexOf(searchText.toLowerCase()) > -1
   );
 
   const handleSelectItem = (i) => {
@@ -61,7 +68,7 @@ function SuggestionsList(props) {
               key={index}
               className="dropdown-list"
             >
-              {item.title}
+              {item.moduleCode + " " + item.title}
             </Dropdown.Item>
           );
         })
