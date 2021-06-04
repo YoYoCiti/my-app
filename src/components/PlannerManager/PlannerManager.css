@@ -1,3 +1,15 @@
 .container {
   display: flex;
 }
+
+.container-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.remove-button {
+  margin-top: 0;
+  position: absolute;
+  right: 0pt;
+}

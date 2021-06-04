@@ -8,17 +8,18 @@ import "./ModuleBar.css";
 function ModuleBar(props) {
   const {
     moduleBar,
-    toggleModuleBar,
     moduleData,
     displayedModule,
     setDisplayedModule,
     plannedModules,
     setPlannedModules,
+    resetModuleBar,
+    semSelected,
   } = props;
 
   return (
     <div className={moduleBar ? "module-bar-active" : "module-bar-off"}>
-      <BsX className="close-button" onClick={toggleModuleBar} />
+      <BsX className="close-button" onClick={resetModuleBar} />
       <AutoCompleteSearch
         setDisplayedModule={setDisplayedModule}
         moduleData={moduleData}
@@ -27,8 +28,8 @@ function ModuleBar(props) {
         displayedModule={displayedModule}
         plannedModules={plannedModules}
         setPlannedModules={setPlannedModules}
-        setDisplayedModule={setDisplayedModule}
-        toggleModuleBar={toggleModuleBar}
+        resetModuleBar={resetModuleBar}
+        semSelected={semSelected}
       />
     </div>
   );
@@ -39,26 +40,33 @@ function ModuleBox(props) {
     displayedModule,
     plannedModules,
     setPlannedModules,
-    setDisplayedModule,
-    toggleModuleBar,
+    resetModuleBar,
+    semSelected,
   } = props;
+
   function handleAddModule() {
     const newPlannedModules = [
-      ...plannedModules.slice(0, plannedModules.length - 1),
-      {
-        moduleCode: displayedModule.moduleCode,
-        title: displayedModule.title,
-      },
-      { moduleCode: "", title: "Add Modules" },
+      ...plannedModules.slice(0, semSelected),
+      [
+        ...plannedModules[semSelected].slice(
+          0,
+          plannedModules[semSelected].length - 1
+        ),
+        {
+          moduleCode: displayedModule.moduleCode,
+          title: displayedModule.title,
+        },
+        {
+          moduleCode: "",
+          title: "Add Modules",
+        },
+      ],
+      ...plannedModules.slice(semSelected + 1),
     ];
     setPlannedModules(newPlannedModules);
-    toggleModuleBar();
-    setDisplayedModule({
-      moduleCode: "",
-      title: "",
-      description: "",
-    });
+    resetModuleBar();
   }
+
   return (
     <div>
       <p className="module-title">

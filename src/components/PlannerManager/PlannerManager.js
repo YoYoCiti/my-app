@@ -3,6 +3,7 @@ import "./PlannerManager.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import ModuleBar from "../ModuleBar";
+import { BsX } from "react-icons/bs";
 
 function PlannerManager(props) {
   const { moduleData } = props;
@@ -12,47 +13,89 @@ function PlannerManager(props) {
     title: "",
     description: "",
   });
-  const [plannedModules, setPlannedModules] = useState([
-    { moduleCode: "CS1101S", title: "Programming Methodology" },
-    { moduleCode: "", title: "Add Modules" },
-  ]);
-  const toggleModuleBar = () => setModuleBar(!moduleBar);
+  const [plannedModules, setPlannedModules] = useState(
+    Array(8).fill([{ moduleCode: "", title: "Add Modules" }])
+  );
+  const [semSelected, setSemSelected] = useState(-1);
 
+  const resetModuleBar = () => {
+    setModuleBar(false);
+    setDisplayedModule({ moduleCode: "", title: "", description: "" });
+  };
   return (
     <div className="container">
-      <PlannerList
-        toggleModuleBar={toggleModuleBar}
-        plannedModules={plannedModules}
-      />
+      <div className="container-2">
+        <PlannerList
+          setModuleBar={setModuleBar}
+          plannedModules={plannedModules}
+          setPlannedModules={setPlannedModules}
+          setSemSelected={setSemSelected}
+        />
+      </div>
       <ModuleBar
         moduleBar={moduleBar}
-        toggleModuleBar={toggleModuleBar}
         moduleData={moduleData}
         displayedModule={displayedModule}
         setDisplayedModule={setDisplayedModule}
         plannedModules={plannedModules}
         setPlannedModules={setPlannedModules}
+        resetModuleBar={resetModuleBar}
+        semSelected={semSelected}
       />
     </div>
   );
 }
 
 function PlannerList(props) {
-  const { toggleModuleBar, plannedModules } = props;
+  const { setModuleBar, plannedModules, setPlannedModules, setSemSelected } =
+    props;
+  function handleRemoveModule(sem, mod) {
+    const newPlannedModules = [
+      ...plannedModules.slice(0, sem),
+      [
+        ...plannedModules[sem].slice(0, mod),
+        ...plannedModules[sem].slice(mod + 1),
+      ],
+      ...plannedModules.slice(sem + 1),
+    ];
+    setPlannedModules(newPlannedModules);
+  }
+
   return (
-    <CardDeck>
-      {plannedModules.map((module, index) => (
-        <Card
-          key={index}
-          onClick={
-            index === plannedModules.length - 1 ? toggleModuleBar : () => false
-          }
-        >
-          <Card.Title>{module.moduleCode}</Card.Title>
-          <Card.Text>{module.title}</Card.Text>
-        </Card>
+    <>
+      {plannedModules.map((sem, index1) => (
+        <>
+          <h2>
+            Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
+          </h2>
+          <CardDeck key={index1}>
+            {sem.map((module, index2) => (
+              <Card
+                key={index2}
+                style={{ width: "10rem" }}
+                onClick={
+                  module.title === "Add Modules"
+                    ? () => {
+                        setModuleBar(true);
+                        setSemSelected(index1);
+                      }
+                    : () => false
+                }
+              >
+                {module.title !== "Add Modules" && (
+                  <BsX
+                    className="remove-button"
+                    onClick={() => handleRemoveModule(index1, index2)}
+                  />
+                )}
+                <Card.Title>{module.moduleCode}</Card.Title>
+                <Card.Text>{module.title}</Card.Text>
+              </Card>
+            ))}
+          </CardDeck>
+        </>
       ))}
-    </CardDeck>
+    </>
   );
 }
 
