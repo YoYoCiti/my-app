@@ -12,35 +12,46 @@ function PlannerManager(props) {
     title: "",
     description: "",
   });
+  const [plannedModules, setPlannedModules] = useState([
+    { moduleCode: "CS1101S", title: "Programming Methodology" },
+    { moduleCode: "", title: "Add Modules" },
+  ]);
   const toggleModuleBar = () => setModuleBar(!moduleBar);
 
   return (
-    <>
+    <div className="container">
+      <PlannerList
+        toggleModuleBar={toggleModuleBar}
+        plannedModules={plannedModules}
+      />
       <ModuleBar
         moduleBar={moduleBar}
         toggleModuleBar={toggleModuleBar}
         moduleData={moduleData}
         displayedModule={displayedModule}
         setDisplayedModule={setDisplayedModule}
+        plannedModules={plannedModules}
+        setPlannedModules={setPlannedModules}
       />
-      <div className="temp-text">
-        <button onClick={toggleModuleBar}>Add Module</button>
-      </div>
-    </>
+    </div>
   );
 }
 
 function PlannerList(props) {
-  const { toggleModuleBar } = props;
+  const { toggleModuleBar, plannedModules } = props;
   return (
     <CardDeck>
-      <Card>
-        <Card.Title>CS1101S </Card.Title>
-        <Card.Text>Programming Methodology</Card.Text>
-      </Card>
-      <Card className="text-center" onClick={toggleModuleBar}>
-        <Card.Text>Add Module</Card.Text>
-      </Card>
+      {plannedModules.map((module, index) => (
+        <Card
+          key={index}
+          onClick={
+            index === plannedModules.length - 1 ? toggleModuleBar : () => false
+          }
+        >
+          <Card.Title>{module.moduleCode}</Card.Title>
+          <Card.Text>{module.title}</Card.Text>
+        </Card>
+      ))}
     </CardDeck>
   );
 }
