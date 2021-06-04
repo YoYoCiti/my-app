@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AutoCompleteSearch from "../AutoCompleteSearch";
 import { BsX } from "react-icons/bs";
+import Button from "react-bootstrap/Button";
 
 import "./ModuleBar.css";
 
@@ -31,6 +32,11 @@ function ModuleBox(props) {
         {displayedModule.moduleCode + " " + displayedModule.title}
       </p>
       <p className="module-description">{displayedModule.description}</p>
+      {displayedModule.moduleCode && (
+        <Button className="add-module-button" variant="info" size="sm">
+          Add Module
+        </Button>
+      )}
     </div>
   );
 }

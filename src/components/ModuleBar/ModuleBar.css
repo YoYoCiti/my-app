@@ -42,3 +42,9 @@
   height: 30px;
   margin-top: 1rem;
 }
+
+.add-module-button {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
