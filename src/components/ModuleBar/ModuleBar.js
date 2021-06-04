@@ -6,12 +6,14 @@ import Button from "react-bootstrap/Button";
 import "./ModuleBar.css";
 
 function ModuleBar(props) {
-  const { moduleBar, toggleModuleBar, moduleData } = props;
-  const [displayedModule, setDisplayedModule] = useState({
-    moduleCode: "",
-    title: "",
-    description: "",
-  });
+  const {
+    moduleBar,
+    toggleModuleBar,
+    moduleData,
+    displayedModule,
+    setDisplayedModule,
+  } = props;
+
   return (
     <div className={moduleBar ? "module-bar-active" : "module-bar-off"}>
       <BsX className="close-button" onClick={toggleModuleBar} />
