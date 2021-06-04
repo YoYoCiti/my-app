@@ -15,7 +15,7 @@ function Planner() {
       });
   }, []);
   return (
-    <>
+    <div className="planner-backg">
       <Sidebar />
       <ModuleBar
         moduleBar={moduleBar}
@@ -25,7 +25,7 @@ function Planner() {
       <div className="temp-text">
         <button onClick={toggleModuleBar}>Add Module</button>
       </div>
-    </>
+    </div>
   );
 }
 
