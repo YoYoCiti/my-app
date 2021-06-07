@@ -2,6 +2,8 @@ import React from "react";
 import AutoCompleteSearch from "../AutoCompleteSearch";
 import { BsX } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
+import { database } from "../../config/firebase";
+import { useAuth } from "../../contexts/AuthContext";
 
 import "./ModuleBar.css";
 
@@ -43,28 +45,35 @@ function ModuleBox(props) {
     resetModuleBar,
     semSelected,
   } = props;
+  const { currentUser } = useAuth();
 
   function handleAddModule() {
     const newPlannedModules = [
       ...plannedModules.slice(0, semSelected),
-      [
-        ...plannedModules[semSelected].slice(
-          0,
-          plannedModules[semSelected].length - 1
-        ),
-        {
-          moduleCode: displayedModule.moduleCode,
-          title: displayedModule.title,
-        },
-        {
-          moduleCode: "",
-          title: "Add Modules",
-        },
-      ],
+      {
+        acadSemester: [
+          ...plannedModules[semSelected].acadSemester.slice(
+            0,
+            plannedModules[semSelected].acadSemester.length - 1
+          ),
+          {
+            moduleCode: displayedModule.moduleCode,
+            title: displayedModule.title,
+          },
+          {
+            moduleCode: "",
+            title: "Add Modules",
+          },
+        ],
+      },
       ...plannedModules.slice(semSelected + 1),
     ];
+
     setPlannedModules(newPlannedModules);
     resetModuleBar();
+    database.users
+      .doc(currentUser?.uid)
+      .set({ plannedModules: newPlannedModules });
   }
 
   return (

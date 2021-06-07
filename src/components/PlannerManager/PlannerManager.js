@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./PlannerManager.css";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import ModuleBar from "../ModuleBar";
 import { BsX } from "react-icons/bs";
+import { database } from "../../config/firebase";
+import { useAuth } from "../../contexts/AuthContext";
 
 function PlannerManager(props) {
   const { moduleData } = props;
+  const { currentUser } = useAuth();
   const [moduleBar, setModuleBar] = useState(false);
   const [displayedModule, setDisplayedModule] = useState({
     moduleCode: "",
@@ -14,7 +17,7 @@ function PlannerManager(props) {
     description: "",
   });
   const [plannedModules, setPlannedModules] = useState(
-    Array(8).fill([{ moduleCode: "", title: "Add Modules" }])
+    Array(8).fill({ acadSemester: [{ moduleCode: "", title: "Add Modules" }] })
   );
   const [semSelected, setSemSelected] = useState(-1);
 
@@ -22,6 +25,24 @@ function PlannerManager(props) {
     setModuleBar(false);
     setDisplayedModule({ moduleCode: "", title: "", description: "" });
   };
+
+  useEffect(() => {
+    database.users
+      .doc(currentUser?.uid)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setPlannedModules(doc.data().plannedModules);
+        } else {
+          database.users.doc(currentUser?.uid).set({
+            plannedModules: Array(8).fill({
+              acadSemester: [{ moduleCode: "", title: "Add Modules" }],
+            }),
+          });
+        }
+      });
+  }, [currentUser]);
+
   return (
     <div className="container">
       <div className="container-2">
@@ -49,16 +70,24 @@ function PlannerManager(props) {
 function PlannerList(props) {
   const { setModuleBar, plannedModules, setPlannedModules, setSemSelected } =
     props;
+  const { currentUser } = useAuth();
+
   function handleRemoveModule(sem, mod) {
     const newPlannedModules = [
       ...plannedModules.slice(0, sem),
-      [
-        ...plannedModules[sem].slice(0, mod),
-        ...plannedModules[sem].slice(mod + 1),
-      ],
+      {
+        acadSemester: [
+          ...plannedModules[sem].acadSemester.slice(0, mod),
+          ...plannedModules[sem].acadSemester.slice(mod + 1),
+        ],
+      },
       ...plannedModules.slice(sem + 1),
     ];
+
     setPlannedModules(newPlannedModules);
+    database.users
+      .doc(currentUser?.uid)
+      .set({ plannedModules: newPlannedModules });
   }
 
   return (
@@ -69,7 +98,7 @@ function PlannerList(props) {
             Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
           </h2>
           <CardDeck key={index1}>
-            {sem.map((module, index2) => (
+            {sem.acadSemester.map((module, index2) => (
               <Card
                 key={index2}
                 style={{ width: "10rem" }}
