@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Box from "../components/Box";
+import "./login-style.css";
 
 function PageSignUp() {
   const emailRef = useRef();
@@ -36,9 +37,9 @@ function PageSignUp() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <Box>
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSignUp}>
-          <div class="form-group">
+        <h2 className="login-header">Sign Up</h2>
+        <form onSubmit={handleSignUp} className="login-form">
+          <div>
             <label class="sr-only">Enter your email:</label>
             <input
               class="form-control"
@@ -49,7 +50,7 @@ function PageSignUp() {
               placeholder="Enter your email"
             />
           </div>
-          <div class="form-group">
+          <div>
             <label class="sr-only" for="password">
               Create password:
             </label>
@@ -62,7 +63,7 @@ function PageSignUp() {
               minlength="8"
             />
           </div>
-          <div class="form-group">
+          <div>
             <label class="sr-only" for="password-confirm">
               Confirm password:
             </label>
@@ -74,19 +75,20 @@ function PageSignUp() {
               placeholder="Confirm password"
             />
           </div>
-          {error && <div id="errorMessage">{error}</div>}
-          <div>
+          <div className="submit-area">
+            {error && <div id="errorMessage">{error}</div>}
+
             <button
               type="submit"
               value="Confirm"
-              class="btn btn-default btn-block"
+              className="login-btn"
               disabled={loading}
             >
               Create Account
             </button>
           </div>
           <div>
-            <span>Already have an account?</span>
+            <span>Already have an account?&nbsp;</span>
             <Link to="/login" value="Back to Login">
               Log in
             </Link>

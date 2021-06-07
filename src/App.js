@@ -9,7 +9,6 @@ import { deepPurple } from "@material-ui/core/colors";
 import Planner from "./pages/Planner";
 import Progress from "./pages/Progress";
 import Forum from "./pages/Forum";
-import "./pages/style.css";
 
 function App() {
   return (
