@@ -16,9 +16,7 @@ function PlannerManager(props) {
     title: "",
     description: "",
   });
-  const [plannedModules, setPlannedModules] = useState(
-    Array(8).fill({ acadSemester: [{ moduleCode: "", title: "Add Modules" }] })
-  );
+  const [plannedModules, setPlannedModules] = useState();
   const [semSelected, setSemSelected] = useState(-1);
 
   const resetModuleBar = () => {
@@ -34,6 +32,11 @@ function PlannerManager(props) {
         if (doc.exists) {
           setPlannedModules(doc.data().plannedModules);
         } else {
+          setPlannedModules(
+            Array(8).fill({
+              acadSemester: [{ moduleCode: "", title: "Add Modules" }],
+            })
+          );
           database.users.doc(currentUser?.uid).set({
             plannedModules: Array(8).fill({
               acadSemester: [{ moduleCode: "", title: "Add Modules" }],
@@ -92,38 +95,42 @@ function PlannerList(props) {
 
   return (
     <>
-      {plannedModules.map((sem, index1) => (
-        <>
-          <h2>
-            Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
-          </h2>
-          <CardDeck key={index1}>
-            {sem.acadSemester.map((module, index2) => (
-              <Card
-                key={index2}
-                style={{ width: "10rem" }}
-                onClick={
-                  module.title === "Add Modules"
-                    ? () => {
-                        setModuleBar(true);
-                        setSemSelected(index1);
-                      }
-                    : () => false
-                }
-              >
-                {module.title !== "Add Modules" && (
-                  <BsX
-                    className="remove-button"
-                    onClick={() => handleRemoveModule(index1, index2)}
-                  />
-                )}
-                <Card.Title>{module.moduleCode}</Card.Title>
-                <Card.Text>{module.title}</Card.Text>
-              </Card>
-            ))}
-          </CardDeck>
-        </>
-      ))}
+      {!plannedModules ? (
+        <div className="temp-text">Loading...</div>
+      ) : (
+        plannedModules.map((sem, index1) => (
+          <>
+            <h2>
+              Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
+            </h2>
+            <CardDeck key={index1}>
+              {sem.acadSemester.map((module, index2) => (
+                <Card
+                  key={index2}
+                  style={{ width: "10rem" }}
+                  onClick={
+                    module.title === "Add Modules"
+                      ? () => {
+                          setModuleBar(true);
+                          setSemSelected(index1);
+                        }
+                      : () => false
+                  }
+                >
+                  {module.title !== "Add Modules" && (
+                    <BsX
+                      className="remove-button"
+                      onClick={() => handleRemoveModule(index1, index2)}
+                    />
+                  )}
+                  <Card.Title>{module.moduleCode}</Card.Title>
+                  <Card.Text>{module.title}</Card.Text>
+                </Card>
+              ))}
+            </CardDeck>
+          </>
+        ))
+      )}
     </>
   );
 }
