@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,25 +6,37 @@ import Box from "../components/Box";
 import "./login-style.css";
 
 function PageLogin() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const { login } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const { login } = useAuth();
+
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+    error: "",
+    loading: false,
+  });
+
+  const handleOnChange = (event) =>
+    setFormState((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
 
   async function handleLogIn(event) {
     event.preventDefault();
 
     try {
-      setError("");
-      setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      setFormState((prevState) => ({ ...prevState, error: "", loading: true }));
+      await login(formState.email, formState.password);
       history.push("/");
     } catch (caughtError) {
-      setError(caughtError.message);
+      setFormState((prevState) => ({
+        ...prevState,
+        error: caughtError.message,
+      }));
+    } finally {
+      setFormState((prevState) => ({ ...prevState, loading: false }));
     }
-    setLoading(false);
   }
 
   return (
@@ -50,7 +62,8 @@ function PageLogin() {
               placeholder="Enter email"
               id="email"
               name="email"
-              ref={emailRef}
+              value={formState.email}
+              onChange={handleOnChange}
             />
           </div>
           <div>
@@ -62,17 +75,18 @@ function PageLogin() {
               class="form-control"
               placeholder="Enter password"
               name="password"
-              ref={passwordRef}
+              value={formState.password}
+              onChange={handleOnChange}
             />
             <Link className="login-resetpwd">Forgot Password?</Link>
           </div>
           <div className="submit-area">
-            {error && <div id="errorMessage">{error}</div>}
+            {formState.error && <div id="errorMessage">{formState.error}</div>}
             <button
               type="submit"
               className="login-btn"
               value="Confirm"
-              disabled={loading}
+              disabled={formState.loading}
             >
               Sign in
             </button>

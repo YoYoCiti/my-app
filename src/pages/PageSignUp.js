@@ -18,23 +18,32 @@ function PageSignUp() {
   });
 
   const handleOnChange = (event) =>
-    setFormState({ ...formState, [event.target.name]: event.target.value });
+    setFormState((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
 
   async function handleSignUp(event) {
     event.preventDefault();
 
     if (formState.password !== formState.confirmPassword) {
-      return setFormState({ ...formState, error: "Passwords do not match" });
+      return setFormState((prevState) => ({
+        ...prevState,
+        error: "Passwords do not match",
+      }));
     }
 
     try {
-      setFormState({ ...formState, error: "", loading: true });
+      setFormState((prevState) => ({ ...prevState, error: "", loading: true }));
       await signup(formState.email, formState.password);
       history.push("/");
     } catch {
-      setFormState({ ...formState, error: "Failed to create account" });
+      setFormState((prevState) => ({
+        ...prevState,
+        error: "Failed to create account",
+      }));
     } finally {
-      setFormState({ ...formState, loading: false });
+      setFormState((prevState) => ({ ...prevState, loading: false }));
     }
   }
 
@@ -91,7 +100,6 @@ function PageSignUp() {
 
             <button
               type="submit"
-              value="Confirm"
               className="login-btn"
               disabled={formState.loading}
             >
