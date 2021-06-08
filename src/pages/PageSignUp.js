@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,30 +6,36 @@ import Box from "../components/Box";
 import "./login-style.css";
 
 function PageSignUp() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const passwordConfirmRef = useRef();
   const history = useHistory();
   const { signup } = useAuth();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    error: "",
+    loading: false,
+  });
+
+  const handleOnChange = (event) =>
+    setFormState({ ...formState, [event.target.name]: event.target.value });
 
   async function handleSignUp(event) {
     event.preventDefault();
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      return setError("Passwords do not match");
+    if (formState.password !== formState.confirmPassword) {
+      return setFormState({ ...formState, error: "Passwords do not match" });
     }
 
     try {
-      setError("");
-      setLoading(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
+      setFormState({ ...formState, error: "", loading: true });
+      await signup(formState.email, formState.password);
       history.push("/");
     } catch {
-      setError("Failed to create account");
+      setFormState({ ...formState, error: "Failed to create account" });
+    } finally {
+      setFormState({ ...formState, loading: false });
     }
-    setLoading(false);
   }
 
   return (
@@ -48,7 +54,8 @@ function PageSignUp() {
               type="email"
               id="email"
               name="email"
-              ref={emailRef}
+              value={formState.email}
+              onChange={handleOnChange}
               placeholder="Enter your email"
             />
           </div>
@@ -60,31 +67,33 @@ function PageSignUp() {
               class="form-control"
               type="password"
               name="password"
-              ref={passwordRef}
+              value={formState.password}
+              onChange={handleOnChange}
               placeholder="Create password"
               minlength="8"
             />
           </div>
           <div>
-            <label class="sr-only" for="password-confirm">
+            <label class="sr-only" for="confirmPassword">
               Confirm password:
             </label>
             <input
               class="form-control"
               type="password"
-              name="password-confirm"
-              ref={passwordConfirmRef}
+              name="confirmPassword"
+              value={formState.confirmPassword}
+              onChange={handleOnChange}
               placeholder="Confirm password"
             />
           </div>
           <div className="submit-area">
-            {error && <div id="errorMessage">{error}</div>}
+            {formState.error && <div id="errorMessage">{formState.error}</div>}
 
             <button
               type="submit"
               value="Confirm"
               className="login-btn"
-              disabled={loading}
+              disabled={formState.loading}
             >
               Create Account
             </button>
