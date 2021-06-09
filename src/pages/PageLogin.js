@@ -10,7 +10,7 @@ function PageLogin() {
   const { login } = useAuth();
 
   const [formState, setFormState] = useState({
-    email: "",
+    logInCredential: "",
     password: "",
     error: "",
     loading: false,
@@ -27,7 +27,7 @@ function PageLogin() {
 
     try {
       setFormState((prevState) => ({ ...prevState, error: "", loading: true }));
-      await login(formState.email, formState.password);
+      await login(formState.logInCredential, formState.password);
       history.push("/");
     } catch (caughtError) {
       setFormState((prevState) => ({
@@ -53,16 +53,14 @@ function PageLogin() {
           className="login-form"
         >
           <div>
-            <label class="sr-only" for="email">
-              Enter email:
-            </label>
+            <label class="sr-only">Enter email or username:</label>
             <input
-              type="email"
+              type="text"
               class="form-control"
-              placeholder="Enter email"
-              id="email"
-              name="email"
-              value={formState.email}
+              placeholder="Enter email or username"
+              id="logInCredential"
+              name="logInCredential"
+              value={formState.logInCredential}
               onChange={handleOnChange}
             />
           </div>

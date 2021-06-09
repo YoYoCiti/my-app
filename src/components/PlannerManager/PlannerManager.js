@@ -29,20 +29,7 @@ function PlannerManager(props) {
       .doc(currentUser?.uid)
       .get()
       .then((doc) => {
-        if (doc.exists) {
-          setPlannedModules(doc.data().plannedModules);
-        } else {
-          setPlannedModules(
-            Array(8).fill({
-              acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-            })
-          );
-          database.users.doc(currentUser?.uid).set({
-            plannedModules: Array(8).fill({
-              acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-            }),
-          });
-        }
+        setPlannedModules(doc.data().plannedModules);
       });
   }, [currentUser]);
 
@@ -90,7 +77,7 @@ function PlannerList(props) {
     setPlannedModules(newPlannedModules);
     database.users
       .doc(currentUser?.uid)
-      .set({ plannedModules: newPlannedModules });
+      .update({ plannedModules: newPlannedModules });
   }
 
   return (

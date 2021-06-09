@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -7,12 +7,13 @@ import "./login-style.css";
 
 function PageSignUp() {
   const history = useHistory();
-  const { signup } = useAuth();
+  const { signup, isUsernameValid } = useAuth();
 
   const [formState, setFormState] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    username: "",
     error: "",
     loading: false,
   });
@@ -33,14 +34,22 @@ function PageSignUp() {
       }));
     }
 
+    const validUsername = await isUsernameValid(formState.username);
+    if (!validUsername) {
+      return setFormState((prevState) => ({
+        ...prevState,
+        error: "Username already in use",
+      }));
+    }
+
     try {
       setFormState((prevState) => ({ ...prevState, error: "", loading: true }));
-      await signup(formState.email, formState.password);
+      await signup(formState.email, formState.password, formState.username);
       history.push("/");
-    } catch {
+    } catch (caughtError) {
       setFormState((prevState) => ({
         ...prevState,
-        error: "Failed to create account",
+        error: caughtError.message,
       }));
     } finally {
       setFormState((prevState) => ({ ...prevState, loading: false }));
@@ -66,6 +75,19 @@ function PageSignUp() {
               value={formState.email}
               onChange={handleOnChange}
               placeholder="Enter your email"
+            />
+          </div>
+          <div>
+            <label class="sr-only" for="username">
+              Create username:
+            </label>
+            <input
+              class="form-control"
+              type="username"
+              name="username"
+              value={formState.username}
+              onChange={handleOnChange}
+              placeholder="Create username"
             />
           </div>
           <div>
@@ -97,7 +119,6 @@ function PageSignUp() {
           </div>
           <div className="submit-area">
             {formState.error && <div id="errorMessage">{formState.error}</div>}
-
             <button
               type="submit"
               className="login-btn"

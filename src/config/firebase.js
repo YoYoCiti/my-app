@@ -15,6 +15,8 @@ const firestore = firebaseConfig.firestore();
 
 export const database = {
   users: firestore.collection("users"),
+  usernames: firestore.collection("usernames"),
 };
+
 export const auth = firebaseConfig.auth();
 export default firebaseConfig;

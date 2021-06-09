@@ -73,7 +73,7 @@ function ModuleBox(props) {
     resetModuleBar();
     database.users
       .doc(currentUser?.uid)
-      .set({ plannedModules: newPlannedModules });
+      .update({ plannedModules: newPlannedModules });
   }
 
   return (
