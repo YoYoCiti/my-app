@@ -13,6 +13,7 @@ function Planner() {
         setModuleData(data);
       });
   }, []);
+
   return (
     <div className="planner-backg">
       <Sidebar />

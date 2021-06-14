@@ -16,6 +16,27 @@ function PlannerList(props) {
   } = props;
   const { currentUser } = useAuth();
 
+  const isLastCard = (title) => title === "Add Modules";
+  const handleSearchModule = (semToAdd) => {
+    setDisplayOnly(false);
+    setModuleBar(true);
+    setDisplayedModule({
+      moduleCode: "",
+      title: "",
+      description: "",
+    });
+    setSemSelected(semToAdd);
+  };
+  const handleClickModule = (module) => {
+    setDisplayOnly(true);
+    setModuleBar(true);
+    setDisplayedModule({
+      moduleCode: module.moduleCode,
+      title: module.title,
+      description: module.description,
+    });
+  };
+
   function handleRemoveModule(sem, mod) {
     const newPlannedModules = [
       ...plannedModules.slice(0, sem),
@@ -49,29 +70,12 @@ function PlannerList(props) {
                 <Card
                   key={index2}
                   onClick={
-                    module.title === "Add Modules"
-                      ? () => {
-                          setDisplayOnly(false);
-                          setModuleBar(true);
-                          setDisplayedModule({
-                            moduleCode: "",
-                            title: "",
-                            description: "",
-                          });
-                          setSemSelected(index1);
-                        }
-                      : () => {
-                          setDisplayOnly(true);
-                          setModuleBar(true);
-                          setDisplayedModule({
-                            moduleCode: module.moduleCode,
-                            title: module.title,
-                            description: module.description,
-                          });
-                        }
+                    isLastCard(module.title)
+                      ? () => handleSearchModule(index1)
+                      : () => handleClickModule(module)
                   }
                 >
-                  {module.title !== "Add Modules" && (
+                  {!isLastCard(module.title) && (
                     <BsX
                       className="remove-button"
                       onClick={(event) => {
