@@ -48,7 +48,6 @@ function PlannerList(props) {
               {sem.acadSemester.map((module, index2) => (
                 <Card
                   key={index2}
-                  style={{ width: "10rem" }}
                   onClick={
                     module.title === "Add Modules"
                       ? () => {

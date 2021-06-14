@@ -43,6 +43,7 @@
   margin-top: 1rem;
   margin-right: 100%;
   margin-bottom: 16px;
+  cursor: pointer;
 }
 
 .add-module-button {
