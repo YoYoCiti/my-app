@@ -17,21 +17,25 @@ function ModuleBar(props) {
     setPlannedModules,
     resetModuleBar,
     semSelected,
+    displayOnly,
   } = props;
 
   return (
     <div className={moduleBar ? "module-bar-active" : "module-bar-off"}>
       <BsX className="close-button" onClick={resetModuleBar} />
-      <AutoCompleteSearch
-        setDisplayedModule={setDisplayedModule}
-        moduleData={moduleData}
-      />
+      {!displayOnly && (
+        <AutoCompleteSearch
+          setDisplayedModule={setDisplayedModule}
+          moduleData={moduleData}
+        />
+      )}
       <ModuleBox
         displayedModule={displayedModule}
         plannedModules={plannedModules}
         setPlannedModules={setPlannedModules}
         resetModuleBar={resetModuleBar}
         semSelected={semSelected}
+        displayOnly={displayOnly}
       />
     </div>
   );
@@ -44,6 +48,7 @@ function ModuleBox(props) {
     setPlannedModules,
     resetModuleBar,
     semSelected,
+    displayOnly,
   } = props;
   const { currentUser } = useAuth();
 
@@ -59,6 +64,7 @@ function ModuleBox(props) {
           {
             moduleCode: displayedModule.moduleCode,
             title: displayedModule.title,
+            description: displayedModule.description,
           },
           {
             moduleCode: "",
@@ -82,7 +88,7 @@ function ModuleBox(props) {
         {displayedModule.moduleCode + " " + displayedModule.title}
       </p>
       <p className="module-description">{displayedModule.description}</p>
-      {displayedModule.moduleCode && (
+      {displayedModule.moduleCode && !displayOnly && (
         <Button
           className="add-module-button"
           variant="info"

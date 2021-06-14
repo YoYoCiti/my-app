@@ -16,6 +16,7 @@ function PlannerManager(props) {
   });
   const [plannedModules, setPlannedModules] = useState();
   const [semSelected, setSemSelected] = useState(-1);
+  const [displayOnly, setDisplayOnly] = useState(false);
 
   const resetModuleBar = () => {
     setModuleBar(false);
@@ -39,6 +40,8 @@ function PlannerManager(props) {
           plannedModules={plannedModules}
           setPlannedModules={setPlannedModules}
           setSemSelected={setSemSelected}
+          setDisplayedModule={setDisplayedModule}
+          setDisplayOnly={setDisplayOnly}
         />
       </div>
       <ModuleBar
@@ -50,6 +53,7 @@ function PlannerManager(props) {
         setPlannedModules={setPlannedModules}
         resetModuleBar={resetModuleBar}
         semSelected={semSelected}
+        displayOnly={displayOnly}
       />
     </div>
   );

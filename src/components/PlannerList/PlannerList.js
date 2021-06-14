@@ -6,8 +6,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import "./PlannerList.css";
 
 function PlannerList(props) {
-  const { setModuleBar, plannedModules, setPlannedModules, setSemSelected } =
-    props;
+  const {
+    setModuleBar,
+    plannedModules,
+    setPlannedModules,
+    setSemSelected,
+    setDisplayedModule,
+    setDisplayOnly,
+  } = props;
   const { currentUser } = useAuth();
 
   function handleRemoveModule(sem, mod) {
@@ -46,16 +52,33 @@ function PlannerList(props) {
                   onClick={
                     module.title === "Add Modules"
                       ? () => {
+                          setDisplayOnly(false);
                           setModuleBar(true);
+                          setDisplayedModule({
+                            moduleCode: "",
+                            title: "",
+                            description: "",
+                          });
                           setSemSelected(index1);
                         }
-                      : () => false
+                      : () => {
+                          setDisplayOnly(true);
+                          setModuleBar(true);
+                          setDisplayedModule({
+                            moduleCode: module.moduleCode,
+                            title: module.title,
+                            description: module.description,
+                          });
+                        }
                   }
                 >
                   {module.title !== "Add Modules" && (
                     <BsX
                       className="remove-button"
-                      onClick={() => handleRemoveModule(index1, index2)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleRemoveModule(index1, index2);
+                      }}
                     />
                   )}
                   <Card.Title>{module.moduleCode}</Card.Title>
