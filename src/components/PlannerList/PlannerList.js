@@ -1,5 +1,3 @@
-import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
 import { BsX } from "react-icons/bs";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
@@ -65,9 +63,10 @@ function PlannerList(props) {
             <h2>
               Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
             </h2>
-            <CardDeck key={index1}>
+            <div className="card-deck-custom" key={index1}>
               {sem.acadSemester.map((module, index2) => (
-                <Card
+                <div
+                  className="card-custom"
                   key={index2}
                   onClick={
                     isLastCard(module.title)
@@ -84,11 +83,13 @@ function PlannerList(props) {
                       }}
                     />
                   )}
-                  <Card.Title>{module.moduleCode}</Card.Title>
-                  <Card.Text>{module.title}</Card.Text>
-                </Card>
+                  <div className="card-body-custom">
+                    <p className="card-title-custom">{module.moduleCode}</p>
+                    <p className="card-text-custom">{module.title}</p>
+                  </div>
+                </div>
               ))}
-            </CardDeck>
+            </div>
           </>
         ))
       )}
