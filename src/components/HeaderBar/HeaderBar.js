@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import './HeaderBar.css';
+import React from "react";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { deepPurple } from "@material-ui/core/colors";
+import "./HeaderBar.css";
 
-class HeaderBar extends Component {
-    render() {
-        return (
-            <div>
-                <h1> Plan-et </h1>
-            </div>
-        )
-    }
+function HeaderBar() {
+  return (
+    <AppBar position="sticky" style={{ backgroundColor: deepPurple }}>
+      <Toolbar>
+        <Typography variant="h5">Plan-et</Typography>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
 export default HeaderBar;
