@@ -87,7 +87,6 @@ function ModuleBox(props) {
       <p className="module-title">
         {displayedModule.moduleCode + " " + displayedModule.title}
       </p>
-      <p className="module-description">{displayedModule.description}</p>
       {displayedModule.moduleCode && !displayOnly && (
         <Button
           className="add-module-button"
@@ -98,6 +97,7 @@ function ModuleBox(props) {
           Add Module
         </Button>
       )}
+      <p className="module-description">{displayedModule.description}</p>
     </div>
   );
 }
