@@ -6,7 +6,7 @@ function Progress() {
     <>
       <Sidebar />
       <div className="temp-text">
-        <h1>Progress</h1>
+        <h1>In Progress</h1>
       </div>
     </>
   );
