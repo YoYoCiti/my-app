@@ -10,9 +10,3 @@
   margin-left: 15%;
   transition: 100ms;
 }
-
-.planner-list-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}

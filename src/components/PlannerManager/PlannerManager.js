@@ -34,7 +34,7 @@ function PlannerManager(props) {
 
   return (
     <div className={moduleBar ? "container-minimised" : "main-container"}>
-      <div className="planner-list-container">
+      <div>
         <PlannerList
           setModuleBar={setModuleBar}
           plannedModules={plannedModules}

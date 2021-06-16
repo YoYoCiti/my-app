@@ -19,7 +19,7 @@ function AutoCompleteSearch(props) {
     <div>
       <InputGroup>
         <FormControl
-          placeholder="Search for module"
+          placeholder="Search for module code"
           onChange={handleSearchChange}
           value={searchText}
           className="search-bar"
