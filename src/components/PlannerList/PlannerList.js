@@ -1,4 +1,5 @@
 import { BsX, BsPlus } from "react-icons/bs";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import "./PlannerList.css";
@@ -56,7 +57,10 @@ function PlannerList(props) {
   return (
     <>
       {!plannedModules ? (
-        <div className="temp-text">Loading...</div>
+        <div className="temp-text">
+          <CgSpinnerTwoAlt className="icon-spin" size="50" />
+          <div>Loading...</div>
+        </div>
       ) : (
         plannedModules.map((sem, index1) => (
           <div className="semester-group">
