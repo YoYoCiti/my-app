@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Box from "../components/Box";
 import "./login-style.css";
@@ -65,6 +66,7 @@ function PageSignUp() {
       <Box>
         <h2 className="login-header">Sign Up</h2>
         <form onSubmit={handleSignUp} className="login-form">
+          {formState.error && <Alert variant="danger">{formState.error}</Alert>}
           <div>
             <label class="sr-only">Enter your email:</label>
             <input
@@ -118,7 +120,6 @@ function PageSignUp() {
             />
           </div>
           <div className="submit-area">
-            {formState.error && <div id="errorMessage">{formState.error}</div>}
             <button
               type="submit"
               className="login-btn"
