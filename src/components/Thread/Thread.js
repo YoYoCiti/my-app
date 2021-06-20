@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import TimeAgo from "react-timeago";
+import enStrings from "react-timeago/lib/language-strings/en-short";
+import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
 function Board() {
   return (
@@ -16,29 +19,34 @@ function Threads() {
   const [threads, setThreads] = useState([]);
   const [newThreadText, setNewThreadText] = useState("");
   const [newThreadUser, setNewThreadUser] = useState();
-  const [newThreadTime, setNewThreadTime] = useState();
+  // const [newThreadTime, setNewThreadTime] = useState();
+  const formatter = buildFormatter(enStrings);
 
-  function handleAddThread(event) {
-    event.preventDefault();
+  useEffect(() => {
     database.users
       .doc(currentUser?.uid)
       .get()
       .then((doc) => {
-        setNewThreadUser(doc.data().username);
+        const username = doc.data().username;
+        setNewThreadUser(username);
       });
-    setNewThreadTime(new Date().toLocaleString());
-    addThread(newThreadText, newThreadUser, newThreadTime);
+  }, [currentUser]);
+
+  async function handleAddThread(event) {
+    event.preventDefault();
+    const date = Date().toLocaleString();
+    addThread(newThreadText, newThreadUser, date);
   }
 
-  function addThread(newThreadText, newThreadUser, newThreadTime) {
+  function addThread(newThreadText, newThreadUser, Time) {
     const newThreads = [
-      ...threads,
       {
         text: newThreadText,
         user: newThreadUser,
-        time: newThreadTime,
+        time: Time,
         // id: "0000",
       },
+      ...threads,
     ];
     setThreads(newThreads);
   }
@@ -65,7 +73,7 @@ function Threads() {
           value={newThreadText}
           onChange={(event) => setNewThreadText(event.target.value)}
         />
-        <input type="submit" value="Add" onClick={handleAddThread} />
+        <button type="submit" value="Add" onSubmit={handleAddThread} />
       </div>
       <div>
         {threads.map((thread, index) => (
@@ -73,6 +81,11 @@ function Threads() {
             <p>{thread.user}</p>
             <p>{thread.text}</p>
             <p>{thread.time}</p>
+            <TimeAgo
+              date={thread.time}
+              formatter={formatter}
+              minPeriod="MINUTE"
+            />
           </div>
         ))}
       </div>
