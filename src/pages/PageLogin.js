@@ -23,6 +23,18 @@ function PageLogin() {
       [event.target.name]: event.target.value,
     }));
 
+  function handleError(error) {
+    if (error.code === "auth/user-not-found") {
+      return "This email address is not registered under an account";
+    } else if (error.code === "auth/invalid-email") {
+      return "This email address is not valid";
+    } else if (error.code === "auth/wrong-password") {
+      return "Incorrect password";
+    } else {
+      return error.message;
+    }
+  }
+
   async function handleLogIn(event) {
     event.preventDefault();
 
@@ -33,7 +45,7 @@ function PageLogin() {
     } catch (caughtError) {
       setFormState((prevState) => ({
         ...prevState,
-        error: caughtError.message,
+        error: handleError(caughtError),
       }));
     } finally {
       setFormState((prevState) => ({ ...prevState, loading: false }));

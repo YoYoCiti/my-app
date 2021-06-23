@@ -25,6 +25,18 @@ function PageSignUp() {
       [event.target.name]: event.target.value,
     }));
 
+  function handleError(error) {
+    if (error.code === "auth/email-already-in-use") {
+      return "This email address is already registered under an account";
+    } else if (error.code === "auth/invalid-email") {
+      return "This email address is not valid";
+    } else if (error.code === "auth/weak-password") {
+      return "Password is too weak";
+    } else {
+      return error.message;
+    }
+  }
+
   async function handleSignUp(event) {
     event.preventDefault();
 
@@ -50,7 +62,7 @@ function PageSignUp() {
     } catch (caughtError) {
       setFormState((prevState) => ({
         ...prevState,
-        error: caughtError.message,
+        error: handleError(caughtError),
       }));
     } finally {
       setFormState((prevState) => ({ ...prevState, loading: false }));
