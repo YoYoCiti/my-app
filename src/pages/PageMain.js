@@ -1,17 +1,12 @@
-import { useAuth } from "../contexts/AuthContext";
 import Sidebar from "../components/Sidebar/Sidebar";
+import ProfileCard from "../components/ProfileCard";
 
 function PageMain() {
-  const { currentUser } = useAuth();
-
   return (
-    <>
+    <div className="planner-backg">
       <Sidebar />
-      <div className="temp-text">
-        <h1>Hello World</h1>
-        <p>Current logged in user email: {currentUser.email}</p>
-      </div>
-    </>
+      <ProfileCard />
+    </div>
   );
 }
 
