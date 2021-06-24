@@ -5,7 +5,7 @@ import Board from "../components/Thread/Thread";
 function Forum() {
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar /> */}
       {/* <NewThread /> */}
       <Board />
       <div className="temp-text">

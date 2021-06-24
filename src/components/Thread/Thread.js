@@ -4,24 +4,15 @@ import { useAuth } from "../../contexts/AuthContext";
 import TimeAgo from "react-timeago";
 import enStrings from "react-timeago/lib/language-strings/en-short";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
+import Box from "../Box";
+import Form from "react-bootstrap/Form";
 
 function Board() {
-  return (
-    <>
-      <button>New Thread</button>
-      <Threads />
-    </>
-  );
-}
-
-function Threads() {
   const { currentUser } = useAuth();
   const [threads, setThreads] = useState([]);
-  const [newThreadText, setNewThreadText] = useState("");
   const [newThreadUser, setNewThreadUser] = useState();
-  // const [newThreadTime, setNewThreadTime] = useState();
-  const formatter = buildFormatter(enStrings);
-
+  const [postNewThread, setPostNewThread] = useState(false);
+  
   useEffect(() => {
     database.users
       .doc(currentUser?.uid)
@@ -29,27 +20,87 @@ function Threads() {
       .then((doc) => {
         const username = doc.data().username;
         setNewThreadUser(username);
-      });
-  }, [currentUser]);
+      }, [currentUser]);
+  return (
+    <>
+      <button onClick={() => setPostNewThread(true)}> New Thread</button>
+      {postNewThread && (
+        <PostThread
+          threads={threads}
+          setThreads={setThreads}
+          newThreadUser={newThreadUser}
+          setPostNewThread={setPostNewThread}
+        />
+      )}
+      <Threads threads={threads} />
+    </>
+  );
+}
+
+function PostThread(props) {
+  const { threads, setThreads, newThreadUser, setPostNewThread } = props;
+  const [newThreadText, setNewThreadText] = useState("");
+  const [newThreadTitle, setNewThreadTitle] = useState("");
 
   async function handleAddThread(event) {
     event.preventDefault();
     const date = Date().toLocaleString();
-    addThread(newThreadText, newThreadUser, date);
+    addThread(newThreadText, newThreadUser, newThreadTitle, date);
+    setPostNewThread(false);
   }
 
-  function addThread(newThreadText, newThreadUser, Time) {
+  function addThread(newThreadText, newThreadUser, newThreadTitle, Time) {
     const newThreads = [
       {
+        title: newThreadTitle,
         text: newThreadText,
         user: newThreadUser,
         time: Time,
-        // id: "0000",
+        //boardId: "0000",
       },
       ...threads,
     ];
     setThreads(newThreads);
   }
+
+  return (
+    <Box>
+      <form onSubmit={handleAddThread}>
+        <h2>Create New Thread</h2>
+        <input
+          type="text"
+          value={newThreadTitle}
+          placeholder="Title"
+          onChange={(event) => setNewThreadTitle(event.target.value)}
+          required="required"
+        />
+        <br />
+        <Form.Group>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            value={newThreadText}
+            placeholder="Text (optional)"
+            onChange={(event) => setNewThreadText(event.target.value)}
+          />
+        </Form.Group>
+        {/* <input
+            type="text"
+            value={newThreadText}
+            placeholder="Text (optional)"
+            onChange={(event) => setNewThreadText(event.target.value)}
+          /> */}
+        <input type="submit" value="Add" />
+      </form>
+    </Box>
+  );
+}
+
+function Threads(props) {
+  // const [newThreadTime, setNewThreadTime] = useState();
+  const formatter = buildFormatter(enStrings);
+  const { threads } = props;
+
   // if (!threads.length) {
   //     return (
   //         <p>No threads here yet</p>
@@ -66,21 +117,12 @@ function Threads() {
   return (
     <>
       <div>
-        <h2> Threads</h2>
-        <label>New Thread</label>
-        <input
-          type="text"
-          value={newThreadText}
-          onChange={(event) => setNewThreadText(event.target.value)}
-        />
-        <button type="submit" value="Add" onSubmit={handleAddThread} />
-      </div>
-      <div>
         {threads.map((thread, index) => (
           <div>
-            <p>{thread.user}</p>
-            <p>{thread.text}</p>
-            <p>{thread.time}</p>
+            <p>User: {thread.user}</p>
+            <p>Title: {thread.title}</p>
+            <p>Text: {thread.text}</p>
+            <p>Time: {thread.time}</p>
             <TimeAgo
               date={thread.time}
               formatter={formatter}
