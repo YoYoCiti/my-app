@@ -12,7 +12,7 @@ function Board() {
   const [threads, setThreads] = useState([]);
   const [newThreadUser, setNewThreadUser] = useState();
   const [postNewThread, setPostNewThread] = useState(false);
-  
+
   useEffect(() => {
     database.users
       .doc(currentUser?.uid)
@@ -20,7 +20,8 @@ function Board() {
       .then((doc) => {
         const username = doc.data().username;
         setNewThreadUser(username);
-      }, [currentUser]);
+      });
+  }, [currentUser]);
   return (
     <>
       <button onClick={() => setPostNewThread(true)}> New Thread</button>
