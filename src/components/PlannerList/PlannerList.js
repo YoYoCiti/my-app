@@ -1,6 +1,5 @@
-import Card from "react-bootstrap/Card";
-import CardDeck from "react-bootstrap/CardDeck";
-import { BsX } from "react-icons/bs";
+import { BsX, BsPlus } from "react-icons/bs";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import "./PlannerList.css";
@@ -58,16 +57,24 @@ function PlannerList(props) {
   return (
     <>
       {!plannedModules ? (
-        <div className="temp-text">Loading...</div>
+        <div className="temp-text">
+          <CgSpinnerTwoAlt className="icon-spin" size="50" />
+          <div>Loading...</div>
+        </div>
       ) : (
         plannedModules.map((sem, index1) => (
-          <>
+          <div className="semester-group">
             <h2>
               Year {Math.floor(index1 / 2) + 1} Sem {index1 % 2 === 0 ? 1 : 2}
             </h2>
-            <CardDeck key={index1}>
+            <div className="card-deck-custom" key={index1}>
               {sem.acadSemester.map((module, index2) => (
-                <Card
+                <div
+                  className={
+                    isLastCard(module.title)
+                      ? "card-custom-add-mod"
+                      : "card-custom"
+                  }
                   key={index2}
                   onClick={
                     isLastCard(module.title)
@@ -75,7 +82,9 @@ function PlannerList(props) {
                       : () => handleClickModule(module)
                   }
                 >
-                  {!isLastCard(module.title) && (
+                  {isLastCard(module.title) ? (
+                    <BsPlus className="add-button" />
+                  ) : (
                     <BsX
                       className="remove-button"
                       onClick={(event) => {
@@ -84,12 +93,14 @@ function PlannerList(props) {
                       }}
                     />
                   )}
-                  <Card.Title>{module.moduleCode}</Card.Title>
-                  <Card.Text>{module.title}</Card.Text>
-                </Card>
+                  <div className="card-body-custom">
+                    <p className="card-title-custom">{module.moduleCode}</p>
+                    <p className="card-text-custom">{module.title}</p>
+                  </div>
+                </div>
               ))}
-            </CardDeck>
-          </>
+            </div>
+          </div>
         ))
       )}
     </>

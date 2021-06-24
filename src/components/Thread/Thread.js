@@ -1,41 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
-<<<<<<< Updated upstream
-=======
 import TimeAgo from "react-timeago";
 import enStrings from "react-timeago/lib/language-strings/en-short";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import Box from "../Box";
 import Form from "react-bootstrap/Form";
->>>>>>> Stashed changes
 
 function Board() {
   const { currentUser } = useAuth();
   const [threads, setThreads] = useState([]);
   const [newThreadUser, setNewThreadUser] = useState();
-<<<<<<< Updated upstream
-  const [newThreadTime, setNewThreadTime] = useState();
-=======
   const [postNewThread, setPostNewThread] = useState(false);
->>>>>>> Stashed changes
-
-  function handleAddThread(event) {
-    event.preventDefault();
+  
+  useEffect(() => {
     database.users
       .doc(currentUser?.uid)
       .get()
       .then((doc) => {
-        setNewThreadUser(doc.data().username);
-      });
-<<<<<<< Updated upstream
-    setNewThreadTime(new Date().toLocaleString());
-    addThread(newThreadText, newThreadUser, newThreadTime);
-  }
-
-  function addThread(newThreadText, newThreadUser, newThreadTime) {
-=======
-  }, [currentUser]);
+        const username = doc.data().username;
+        setNewThreadUser(username);
+      }, [currentUser]);
   return (
     <>
       <button onClick={() => setPostNewThread(true)}> New Thread</button>
@@ -65,21 +50,15 @@ function PostThread(props) {
   }
 
   function addThread(newThreadText, newThreadUser, newThreadTitle, Time) {
->>>>>>> Stashed changes
     const newThreads = [
-      ...threads,
       {
         title: newThreadTitle,
         text: newThreadText,
         user: newThreadUser,
-<<<<<<< Updated upstream
-        time: newThreadTime,
-        // id: "0000",
-=======
         time: Time,
         //boardId: "0000",
->>>>>>> Stashed changes
       },
+      ...threads,
     ];
     setThreads(newThreads);
   }
@@ -138,23 +117,6 @@ function Threads(props) {
   return (
     <>
       <div>
-<<<<<<< Updated upstream
-        <h2> Threads</h2>
-        <label>New Thread</label>
-        <input
-          type="text"
-          value={newThreadText}
-          onChange={(event) => setNewThreadText(event.target.value)}
-        />
-        <input type="submit" value="Add" onClick={handleAddThread} />
-      </div>
-      <div>
-        {threads.map((thread, index) => (
-          <div>
-            <p>{thread.user}</p>
-            <p>{thread.text}</p>
-            <p>{thread.time}</p>
-=======
         {threads.map((thread, index) => (
           <div>
             <p>User: {thread.user}</p>
@@ -166,7 +128,6 @@ function Threads(props) {
               formatter={formatter}
               minPeriod="MINUTE"
             />
->>>>>>> Stashed changes
           </div>
         ))}
       </div>

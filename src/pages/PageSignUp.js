@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Box from "../components/Box";
 import "./login-style.css";
@@ -23,6 +24,18 @@ function PageSignUp() {
       ...prevState,
       [event.target.name]: event.target.value,
     }));
+
+  function handleError(error) {
+    if (error.code === "auth/email-already-in-use") {
+      return "This email address is already registered under an account";
+    } else if (error.code === "auth/invalid-email") {
+      return "This email address is not valid";
+    } else if (error.code === "auth/weak-password") {
+      return "Password is too weak";
+    } else {
+      return error.message;
+    }
+  }
 
   async function handleSignUp(event) {
     event.preventDefault();
@@ -49,7 +62,7 @@ function PageSignUp() {
     } catch (caughtError) {
       setFormState((prevState) => ({
         ...prevState,
-        error: caughtError.message,
+        error: handleError(caughtError),
       }));
     } finally {
       setFormState((prevState) => ({ ...prevState, loading: false }));
@@ -65,6 +78,7 @@ function PageSignUp() {
       <Box>
         <h2 className="login-header">Sign Up</h2>
         <form onSubmit={handleSignUp} className="login-form">
+          {formState.error && <Alert variant="danger">{formState.error}</Alert>}
           <div>
             <label class="sr-only">Enter your email:</label>
             <input
@@ -118,7 +132,6 @@ function PageSignUp() {
             />
           </div>
           <div className="submit-area">
-            {formState.error && <div id="errorMessage">{formState.error}</div>}
             <button
               type="submit"
               className="login-btn"

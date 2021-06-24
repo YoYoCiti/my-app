@@ -33,8 +33,8 @@ function PlannerManager(props) {
   }, [currentUser]);
 
   return (
-    <div className="container">
-      <div className="container-2">
+    <div className={moduleBar ? "container-minimised" : "main-container"}>
+      <div>
         <PlannerList
           setModuleBar={setModuleBar}
           plannedModules={plannedModules}
