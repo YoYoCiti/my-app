@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import TimeAgo from "react-timeago";
-import enStrings from "react-timeago/lib/language-strings/en-short";
+import enStrings from "react-timeago/lib/language-strings/en";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import Box from "../Box";
 import Form from "react-bootstrap/Form";
@@ -12,7 +12,6 @@ function Board() {
   const [threads, setThreads] = useState([]);
   const [newThreadUser, setNewThreadUser] = useState();
   const [postNewThread, setPostNewThread] = useState(false);
-
   useEffect(() => {
     database.users
       .doc(currentUser?.uid)
@@ -22,6 +21,23 @@ function Board() {
         setNewThreadUser(username);
       });
   }, [currentUser]);
+
+  useEffect(() => {
+    database.board.get().then((querySnapshot) =>
+      querySnapshot.docs.map((doc) =>
+        setThreads((threads) => [
+          ...threads,
+          {
+            title: doc.data().title,
+            user: doc.data().user,
+            text: doc.data().text,
+            time: doc.data().time,
+          },
+        ])
+      )
+    );
+  }, []);
+
   return (
     <>
       <button onClick={() => setPostNewThread(true)}> New Thread</button>
@@ -62,6 +78,14 @@ function PostThread(props) {
       ...threads,
     ];
     setThreads(newThreads);
+    database.board
+      .add({
+        title: newThreadTitle,
+        text: newThreadText,
+        user: newThreadUser,
+        time: Time,
+      })
+      .then((docRef) => docRef.update({ id: docRef.id }));
   }
 
   return (
@@ -101,6 +125,16 @@ function Threads(props) {
   // const [newThreadTime, setNewThreadTime] = useState();
   const formatter = buildFormatter(enStrings);
   const { threads } = props;
+
+  // useEffect(() => {
+  //   database.board
+  //     .doc("board1")
+  //     .get()
+  //     .then((doc) => {
+  //       const data = doc.data();
+  //       alert(data.title);
+  //     });
+  // }, []);
 
   // if (!threads.length) {
   //     return (
