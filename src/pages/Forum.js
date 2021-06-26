@@ -4,7 +4,7 @@ import Board from "../components/Thread/Thread";
 
 function Forum() {
   return (
-    <div>
+    <div className="forum-margin-temp">
       {/* <Sidebar /> */}
       {/* <NewThread /> */}
       <Board />

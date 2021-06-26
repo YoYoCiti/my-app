@@ -4,7 +4,7 @@ import ProfileCard from "../components/ProfileCard";
 function PageMain() {
   return (
     <div className="planner-backg">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <ProfileCard />
     </div>
   );

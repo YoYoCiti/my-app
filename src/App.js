@@ -7,6 +7,7 @@ import Progress from "./pages/Progress";
 import Forum from "./pages/Forum";
 import PrivateRoute from "./config/PrivateRoute";
 import HeaderBar from "./components/HeaderBar";
+import Sidebar from "./components/Sidebar/Sidebar";
 import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -15,15 +16,18 @@ function App() {
     <Router>
       <AuthProvider>
         <HeaderBar />
-        <Switch>
-          <PrivateRoute exact path="/" component={PageMain} />
-          <Route path="/signup" component={PageSignUp} />
-          <Route path="/login" component={PageLogin} />
-          <Route path="/forgot-password" component={PageForgotPassword} />
-          <PrivateRoute path="/planner" component={Planner} />
-          <PrivateRoute path="/progress" component={Progress} />
-          <PrivateRoute path="/forum" component={Forum} />
-        </Switch>
+        <Sidebar />
+        <div>
+          <Switch>
+            <PrivateRoute exact path="/" component={PageMain} />
+            <Route path="/signup" component={PageSignUp} />
+            <Route path="/login" component={PageLogin} />
+            <Route path="/forgot-password" component={PageForgotPassword} />
+            <PrivateRoute path="/planner" component={Planner} />
+            <PrivateRoute path="/progress" component={Progress} />
+            <PrivateRoute path="/forum" component={Forum} />
+          </Switch>
+        </div>
       </AuthProvider>
     </Router>
   );
