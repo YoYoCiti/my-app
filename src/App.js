@@ -12,20 +12,32 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <HeaderBar />
+  function AuthenicatedRoutes() {
+    return (
+      <>
         <Sidebar />
         <div>
           <Switch>
             <PrivateRoute exact path="/" component={PageMain} />
-            <Route path="/signup" component={PageSignUp} />
-            <Route path="/login" component={PageLogin} />
-            <Route path="/forgot-password" component={PageForgotPassword} />
             <PrivateRoute path="/planner" component={Planner} />
             <PrivateRoute path="/progress" component={Progress} />
             <PrivateRoute path="/forum" component={Forum} />
+          </Switch>
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <Router>
+      <AuthProvider>
+        <HeaderBar />
+        <div>
+          <Switch>
+            <Route path="/signup" component={PageSignUp} />
+            <Route path="/login" component={PageLogin} />
+            <Route path="/forgot-password" component={PageForgotPassword} />
+            <Route component={AuthenicatedRoutes} />
           </Switch>
         </div>
       </AuthProvider>

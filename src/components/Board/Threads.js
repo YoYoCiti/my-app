@@ -7,18 +7,9 @@ function Threads(props) {
   const formatter = buildFormatter(enStrings);
   const { threads } = props;
 
-  // if (!threads.length) {
-  //     return (
-  //         <p>No threads here yet</p>
-  //     )
-  // } else {
-  //     return (
-  //         <div>
-  //             {threads.map(({key, value:thread}) => {
-  //                 <p>{thread.description}</p>
-  //             })}
-  //         </div>
-  //     )
+  if (!threads.length) {
+    return <p>No threads here yet</p>;
+  }
 
   return (
     <>
