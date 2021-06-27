@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
 import "./MainStyle.css";
 import PlannerManager from "../components/PlannerManager";
 
@@ -16,7 +15,7 @@ function Planner() {
 
   return (
     <div className="planner-backg">
-      <Sidebar />
+      {/* <Sidebar /> */}
       <PlannerManager moduleData={moduleData} />
     </div>
   );
