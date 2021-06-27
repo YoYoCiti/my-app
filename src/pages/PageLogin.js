@@ -58,7 +58,7 @@ function PageLogin() {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <Box>
+      <Box className="login-box">
         <h2 className="login-header">Sign In</h2>
         <form
           onSubmit={handleLogIn}
