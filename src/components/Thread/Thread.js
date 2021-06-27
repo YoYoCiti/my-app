@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import TimeAgo from "react-timeago";
-import enStrings from "react-timeago/lib/language-strings/en";
+import enStrings from "react-timeago/lib/language-strings/en-short";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import Box from "../Box";
 import Form from "react-bootstrap/Form";
@@ -23,19 +23,29 @@ function Board() {
   }, [currentUser]);
 
   useEffect(() => {
-    database.board.get().then((querySnapshot) =>
-      querySnapshot.docs.map((doc) =>
-        setThreads((threads) => [
-          ...threads,
-          {
-            title: doc.data().title,
-            user: doc.data().user,
-            text: doc.data().text,
-            time: doc.data().time,
-          },
-        ])
-      )
-    );
+    database.board
+      .orderBy("createdAt", "desc")
+      .get()
+      .then((querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setThreads(data);
+      });
+  }, []);
+
+  useEffect(() => {
+    database.board.orderBy("createdAt", "desc").onSnapshot((querySnapshot) => {
+      const _threads = [];
+      querySnapshot.forEach((doc) => {
+        _threads.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setThreads(_threads);
+    });
   }, []);
 
   return (
@@ -55,35 +65,24 @@ function Board() {
 }
 
 function PostThread(props) {
-  const { threads, setThreads, newThreadUser, setPostNewThread } = props;
+  const { newThreadUser, setPostNewThread } = props;
   const [newThreadText, setNewThreadText] = useState("");
   const [newThreadTitle, setNewThreadTitle] = useState("");
 
   async function handleAddThread(event) {
     event.preventDefault();
-    const date = Date().toLocaleString();
+    const date = new Date();
     addThread(newThreadText, newThreadUser, newThreadTitle, date);
     setPostNewThread(false);
   }
 
-  function addThread(newThreadText, newThreadUser, newThreadTitle, Time) {
-    const newThreads = [
-      {
-        title: newThreadTitle,
-        text: newThreadText,
-        user: newThreadUser,
-        time: Time,
-        //boardId: "0000",
-      },
-      ...threads,
-    ];
-    setThreads(newThreads);
-    database.board
+  async function addThread(newThreadText, newThreadUser, newThreadTitle, time) {
+    await database.board
       .add({
         title: newThreadTitle,
-        text: newThreadText,
+        content: newThreadText,
         user: newThreadUser,
-        time: Time,
+        createdAt: time.toLocaleString(),
       })
       .then((docRef) => docRef.update({ id: docRef.id }));
   }
@@ -91,16 +90,17 @@ function PostThread(props) {
   return (
     <Box>
       <form onSubmit={handleAddThread}>
-        <h2>Create New Thread</h2>
-        <input
-          type="text"
-          value={newThreadTitle}
-          placeholder="Title"
-          onChange={(event) => setNewThreadTitle(event.target.value)}
-          required="required"
-        />
-        <br />
+        <h3>Create New Thread</h3>
         <Form.Group>
+          <Form.Control
+            type="text"
+            value={newThreadTitle}
+            placeholder="Title"
+            onChange={(event) => setNewThreadTitle(event.target.value)}
+            required //Input cannot be empty
+            pattern=".*\S.*" //Input must have at least one character that is not a space
+          />
+          <br />
           <Form.Control
             as="textarea"
             rows={4}
@@ -109,12 +109,6 @@ function PostThread(props) {
             onChange={(event) => setNewThreadText(event.target.value)}
           />
         </Form.Group>
-        {/* <input
-            type="text"
-            value={newThreadText}
-            placeholder="Text (optional)"
-            onChange={(event) => setNewThreadText(event.target.value)}
-          /> */}
         <input type="submit" value="Add" />
       </form>
     </Box>
@@ -122,19 +116,8 @@ function PostThread(props) {
 }
 
 function Threads(props) {
-  // const [newThreadTime, setNewThreadTime] = useState();
   const formatter = buildFormatter(enStrings);
   const { threads } = props;
-
-  // useEffect(() => {
-  //   database.board
-  //     .doc("board1")
-  //     .get()
-  //     .then((doc) => {
-  //       const data = doc.data();
-  //       alert(data.title);
-  //     });
-  // }, []);
 
   // if (!threads.length) {
   //     return (
@@ -152,21 +135,26 @@ function Threads(props) {
   return (
     <>
       <div>
-        {threads.map((thread, index) => (
-          <div>
-            <p>User: {thread.user}</p>
-            <p>Title: {thread.title}</p>
-            <p>Text: {thread.text}</p>
-            <p>Time: {thread.time}</p>
-            <TimeAgo
-              date={thread.time}
-              formatter={formatter}
-              minPeriod="MINUTE"
-            />
-          </div>
-        ))}
+        {threads.map((thread) => {
+          return (
+            <Thread thread={thread} formatter={formatter} key={thread.id} />
+          );
+        })}
       </div>
     </>
+  );
+}
+
+function Thread(props) {
+  const { thread, formatter } = props;
+  return (
+    <div key={thread.id}>
+      <p>User: {thread.user}</p>
+      <p>Title: {thread.title}</p>
+      <p>Text: {thread.text}</p>
+      <p>Time: {thread.time}</p>
+      <TimeAgo date={thread.time} formatter={formatter} minPeriod="MINUTE" />
+    </div>
   );
 }
 

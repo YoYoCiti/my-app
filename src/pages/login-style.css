@@ -11,7 +11,7 @@
   height: 350px;
 }
 
-.Box {
+.login-box {
   width: 500px;
   height: 500px;
   margin-left: auto;
@@ -21,14 +21,6 @@
   position: fixed;
   transform: translate(-50%, -50%);
 }
-
-/* .login-input {
-  display: flex;
-  flex: 0 0 auto;
-  flex-flow: row-wrap;
-  align-items: center;
-  margin-bottom: 20;
-} */
 
 .login-btn {
   box-sizing: inherit;

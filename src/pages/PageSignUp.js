@@ -75,7 +75,7 @@ function PageSignUp() {
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <Box>
+      <Box className="login-box">
         <h2 className="login-header">Sign Up</h2>
         <form onSubmit={handleSignUp} className="login-form">
           {formState.error && <Alert variant="danger">{formState.error}</Alert>}

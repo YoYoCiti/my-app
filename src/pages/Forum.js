@@ -8,9 +8,6 @@ function Forum() {
       {/* <Sidebar /> */}
       {/* <NewThread /> */}
       <Board />
-      <div className="temp-text">
-        <h1>Forum</h1>
-      </div>
     </div>
   );
 }
