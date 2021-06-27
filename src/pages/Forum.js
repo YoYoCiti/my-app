@@ -1,12 +1,9 @@
 import React from "react";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Board from "../components/Thread/Thread";
+import Board from "../components/Board/Board";
 
 function Forum() {
   return (
     <div className="forum-margin-temp">
-      {/* <Sidebar /> */}
-      {/* <NewThread /> */}
       <Board />
     </div>
   );
