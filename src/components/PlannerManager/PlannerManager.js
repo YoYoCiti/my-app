@@ -24,12 +24,9 @@ function PlannerManager(props) {
   };
 
   useEffect(() => {
-    database.users
-      .doc(currentUser?.uid)
-      .get()
-      .then((doc) => {
-        setPlannedModules(doc.data().plannedModules);
-      });
+    database.users.doc(currentUser?.uid).onSnapshot((doc) => {
+      setPlannedModules(doc.data().plannedModules);
+    });
   }, [currentUser]);
 
   return (
