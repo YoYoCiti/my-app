@@ -11,7 +11,8 @@
   height: 350px;
 }
 
-.login-box {
+/* Add more to default Box styling */
+.Box {
   width: 500px;
   height: 500px;
   margin-left: auto;
