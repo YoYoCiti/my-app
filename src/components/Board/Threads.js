@@ -28,7 +28,7 @@ function Threads(props) {
 function Thread(props) {
   const { thread, formatter } = props;
   return (
-    <Box key={thread.id}>
+    <div className="thread-box" key={thread.id}>
       <div>
         <span className="thread-user">{thread.user}&nbsp;</span>
         <TimeAgo
@@ -41,7 +41,7 @@ function Thread(props) {
       <div className="thread-title">{thread.title}</div>
       <div className="thread-text">{thread.content}</div>
       <div className="thread-time">{thread.createdAt}</div>
-    </Box>
+    </div>
   );
 }
 
