@@ -3,6 +3,7 @@ import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import PostThread from "./AddNewThread";
 import Threads from "./Threads";
+import "./Board.css";
 
 function Board() {
   const { currentUser } = useAuth();

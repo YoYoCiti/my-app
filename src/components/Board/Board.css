@@ -1,0 +1,17 @@
+.thread-title {
+  padding-right: 100px;
+  font-weight: 500;
+  display: block;
+  margin: 0;
+  font-size: 18px;
+}
+
+.thread-time {
+  font-weight: 150;
+  font-size: 12px;
+}
+
+.thread-user {
+  font-weight: 350;
+  font-size: 14px;
+}

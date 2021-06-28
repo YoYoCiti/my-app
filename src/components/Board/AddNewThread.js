@@ -48,6 +48,11 @@ function PostThread(props) {
             onChange={(event) => setNewThreadText(event.target.value)}
           />
         </Form.Group>
+        <input
+          type="button"
+          value="Cancel"
+          onClick={() => setPostNewThread(false)}
+        />
         <input type="submit" value="Post" />
       </form>
     </Box>
