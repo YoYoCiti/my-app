@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AutoCompleteSearch from "../AutoCompleteSearch";
 import { BsX } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
-
+import { isDuplicate } from "../../utils/planner-utils";
+import { Alert } from "react-bootstrap";
 import "./ModuleBar.css";
 
 function ModuleBar(props) {
@@ -51,6 +52,18 @@ function ModuleBox(props) {
     displayOnly,
   } = props;
   const { currentUser } = useAuth();
+  const [error, setError] = useState({
+    disabled: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    if (!plannedModules || !displayedModule.moduleCode) {
+      return;
+    }
+    const res = isDuplicate(plannedModules, displayedModule);
+    setError(res);
+  }, [displayedModule]);
 
   function handleAddModule() {
     const newPlannedModules = [
@@ -88,14 +101,20 @@ function ModuleBox(props) {
         {displayedModule.moduleCode + " " + displayedModule.title}
       </p>
       {displayedModule.moduleCode && !displayOnly && (
-        <Button
-          className="add-module-button"
-          variant="info"
-          size="sm"
-          onClick={handleAddModule}
-        >
-          Add Module
-        </Button>
+        <>
+          <Button
+            className="add-module-button"
+            variant="info"
+            size="sm"
+            disabled={error.disabled}
+            onClick={handleAddModule}
+          >
+            Add Module
+          </Button>
+          <div className="error-box">
+            {error.disabled && <Alert variant="warning">{error.message}</Alert>}
+          </div>
+        </>
       )}
       <p className="module-description">{displayedModule.description}</p>
     </div>

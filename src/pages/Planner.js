@@ -6,7 +6,7 @@ function Planner() {
   const [moduleData, setModuleData] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.nusmods.com/v2/2020-2021/moduleInfo.json")
+    fetch("https://api.nusmods.com/v2/2021-2022/moduleInfo.json")
       .then((response) => response.json())
       .then((data) => {
         setModuleData(data);
@@ -15,7 +15,6 @@ function Planner() {
 
   return (
     <div className="planner-backg">
-      {/* <Sidebar /> */}
       <PlannerManager moduleData={moduleData} />
     </div>
   );
