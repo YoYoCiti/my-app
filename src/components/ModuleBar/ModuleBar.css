@@ -20,24 +20,6 @@
   transition: 850ms;
 }
 
-.module-title,
-.module-description {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  padding: 1rem;
-  margin: 0px;
-}
-
-.module-title {
-  font-size: 24px;
-}
-
-.module-description {
-  font-size: 16px;
-  text-align: justify;
-  padding-top: 0;
-  padding-bottom: 5rem;
-}
-
 .close-button {
   float: left;
   width: 40px;
@@ -46,16 +28,4 @@
   margin-right: 100%;
   margin-bottom: 16px;
   cursor: pointer;
-}
-
-.add-module-button {
-  margin-left: 1rem;
-  margin-bottom: 1rem;
-  margin-top: 0;
-}
-
-.error-box {
-  padding-left: 1rem;
-  padding-right: 1rem;
-  text-align: center;
 }
