@@ -4,7 +4,7 @@ import { BsX } from "react-icons/bs";
 import Button from "react-bootstrap/Button";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
-import { isDuplicate } from "../../utils/planner-utils";
+import { checkInvalidEntry } from "../../utils/planner-utils";
 import { Alert } from "react-bootstrap";
 import "./ModuleBar.css";
 
@@ -61,9 +61,13 @@ function ModuleBox(props) {
     if (!plannedModules || !displayedModule.moduleCode) {
       return;
     }
-    const res = isDuplicate(plannedModules, displayedModule);
-    setError(res);
-  }, [displayedModule]);
+    const errorState = checkInvalidEntry(
+      plannedModules,
+      displayedModule,
+      semSelected
+    );
+    setError(errorState);
+  }, [displayedModule, plannedModules, semSelected]);
 
   function handleAddModule() {
     const newPlannedModules = [
