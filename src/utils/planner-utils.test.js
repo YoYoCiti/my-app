@@ -1,10 +1,22 @@
 import { checkInvalidEntry } from "./planner-utils";
 
+const DEFAULT_PLANNER = Array(8).fill({
+  acadSemester: [{ moduleCode: "", title: "Add Modules" }],
+});
+
+const NO_ERROR_STATE = { disabled: false, message: "" };
+const DUPLICATE_ERROR_STATE = {
+  disabled: true,
+  message: "Module has already been added.",
+};
+const INVALID_SEM_ERROR_STATE = {
+  disabled: true,
+  message: "Module is only offered in Semester 2",
+};
+
 describe("checkInvalidEntry can catch duplicates", () => {
   it("should return duplicate error message when module added already exists", () => {
-    const testPlannedModules = Array(8).fill({
-      acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-    });
+    const testPlannedModules = DEFAULT_PLANNER.slice();
     testPlannedModules[0] = {
       acadSemester: [
         { moduleCode: "CS1101S", title: "Programming Methodology" },
@@ -15,15 +27,13 @@ describe("checkInvalidEntry can catch duplicates", () => {
       moduleCode: "CS1101S",
       title: "Programming Methodology",
     };
-    expect(checkInvalidEntry(testPlannedModules, testToAddModule).message).toBe(
-      "Module has already been added."
-    );
+    expect(
+      checkInvalidEntry(testPlannedModules, testToAddModule)
+    ).toStrictEqual(DUPLICATE_ERROR_STATE);
   });
 
-  it("should return empty error message when module added is unique", () => {
-    const testPlannedModules = Array(8).fill({
-      acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-    });
+  it("should return no error state when module added is unique", () => {
+    const testPlannedModules = DEFAULT_PLANNER.slice();
     testPlannedModules[0] = {
       acadSemester: [
         { moduleCode: "CS1231S", title: "Discrete Structures" },
@@ -36,16 +46,14 @@ describe("checkInvalidEntry can catch duplicates", () => {
       semesterData: [{ semester: 1 }, { semester: 2 }],
     };
     expect(
-      checkInvalidEntry(testPlannedModules, testToAddModule).disabled
-    ).toBeFalsy();
+      checkInvalidEntry(testPlannedModules, testToAddModule)
+    ).toStrictEqual(NO_ERROR_STATE);
   });
 });
 
 describe("checkInvalidEntry can catch invalid semesters", () => {
   it("should return invalid semester error message when module not offered", () => {
-    const testPlannedModules = Array(8).fill({
-      acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-    });
+    const testPlannedModules = DEFAULT_PLANNER.slice();
     testPlannedModules[0] = {
       acadSemester: [
         { moduleCode: "CS1101S", title: "Programming Methodology" },
@@ -58,14 +66,12 @@ describe("checkInvalidEntry can catch invalid semesters", () => {
       semesterData: [{ semester: 2 }],
     };
     expect(
-      checkInvalidEntry(testPlannedModules, testToAddModule, 0).message
-    ).toBe("Module is only offered in Semester 2");
+      checkInvalidEntry(testPlannedModules, testToAddModule, 0)
+    ).toStrictEqual(INVALID_SEM_ERROR_STATE);
   });
 
-  it("corner case - should return empty error message when module does not have semester data", () => {
-    const testPlannedModules = Array(8).fill({
-      acadSemester: [{ moduleCode: "", title: "Add Modules" }],
-    });
+  it("corner case - should return no error state when module does not have semester data", () => {
+    const testPlannedModules = DEFAULT_PLANNER.slice();
     testPlannedModules[0] = {
       acadSemester: [
         { moduleCode: "CS1231S", title: "Discrete Structures" },
@@ -78,7 +84,7 @@ describe("checkInvalidEntry can catch invalid semesters", () => {
       semesterData: [],
     };
     expect(
-      checkInvalidEntry(testPlannedModules, testToAddModule, 1).disabled
-    ).toBeFalsy();
+      checkInvalidEntry(testPlannedModules, testToAddModule, 1)
+    ).toStrictEqual(NO_ERROR_STATE);
   });
 });
