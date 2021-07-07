@@ -4,6 +4,8 @@ import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import "./PlannerList.css";
+import { useEffect, useState } from "react";
+import { checkPrerequisites } from "../../utils/requisite-checks";
 
 function PlannerList(props) {
   const {
@@ -94,7 +96,11 @@ function PlannerList(props) {
                           handleRemoveModule(index1, index2);
                         }}
                       />
-                      <FiAlertCircle className="alert-button" />
+                      <AlertIcon
+                        plannedModules={plannedModules}
+                        module={module}
+                        sem={index1}
+                      />
                     </>
                   )}
                   <div className="card-body-custom">
@@ -109,6 +115,22 @@ function PlannerList(props) {
       )}
     </>
   );
+}
+
+function AlertIcon(props) {
+  const { plannedModules, module, sem } = props;
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    if (!plannedModules) {
+      return;
+    }
+    checkPrerequisites(plannedModules, module, sem).then((res) => {
+      setShow(res !== null);
+      console.log(res);
+    });
+  }, [plannedModules, module, sem]);
+
+  return <>{show && <FiAlertCircle className="alert-button" />}</>;
 }
 
 export default PlannerList;
