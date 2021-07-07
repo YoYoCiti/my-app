@@ -2,6 +2,17 @@
   background-color: #f7f7f7;
 }
 
-.forum-margin-temp {
-  margin-left: 13%;
+.planit-margin-wrapper {
+  display: grid;
+  grid-template-columns: 13% 1fr;
+}
+
+.sub1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.sub2 {
+  grid-column-start: 2;
+  grid-column-end: 3;
 }
