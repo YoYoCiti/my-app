@@ -24,7 +24,7 @@ function HeaderBar() {
     >
       <Toolbar>
         <Typography variant="h5" className="title">
-          Plan-et
+          Planit
         </Typography>
         {currentUser && (
           <Button color="inherit" size="large" onClick={handleLogOut}>
