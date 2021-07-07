@@ -1,4 +1,5 @@
 import { BsX, BsPlus } from "react-icons/bs";
+import { FiAlertCircle } from "react-icons/fi";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
@@ -85,13 +86,16 @@ function PlannerList(props) {
                   {isLastCard(module.title) ? (
                     <BsPlus className="add-button" />
                   ) : (
-                    <BsX
-                      className="remove-button"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleRemoveModule(index1, index2);
-                      }}
-                    />
+                    <>
+                      <BsX
+                        className="remove-button"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          handleRemoveModule(index1, index2);
+                        }}
+                      />
+                      <FiAlertCircle className="alert-button" />
+                    </>
                   )}
                   <div className="card-body-custom">
                     <p className="card-title-custom">{module.moduleCode}</p>
