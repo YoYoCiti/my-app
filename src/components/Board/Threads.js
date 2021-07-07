@@ -1,6 +1,7 @@
 import React from "react";
 import TimeAgo from "react-timeago";
-import Box from "../Box";
+// import Box from "../Box";
+import { Link } from "react-router-dom";
 import enStrings from "react-timeago/lib/language-strings/en-short";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
@@ -29,7 +30,9 @@ function Thread(props) {
   const { thread, formatter } = props;
   return (
     <div className="thread-box" key={thread.id}>
+      <Link to={`/board/${thread.id}`}> Click me </Link>
       <div>
+        {thread.id}
         <span className="thread-user">{thread.user}&nbsp;</span>
         <TimeAgo
           date={thread.createdAt}
