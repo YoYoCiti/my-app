@@ -3,16 +3,6 @@ import { TreeView } from "@progress/kendo-react-treeview";
 
 function TreeSelect(props) {
   const { alertState } = props;
-  const res = [
-    {
-      and: [
-        {
-          or: ["CS1010S", "CS1010X"],
-        },
-        "CS1231",
-      ],
-    },
-  ];
 
   const transform = (tree) => {
     const newTree = tree.map((obj) => {
@@ -30,29 +20,6 @@ function TreeSelect(props) {
     return newTree;
   };
 
-  //   const tree = [
-  //     {
-  //       text: "AND",
-  //       expanded: true,
-  //       items: [
-  //         {
-  //           text: "OR",
-  //           expanded: true,
-  //           items: [
-  //             {
-  //               text: "CS1101S",
-  //             },
-  //             {
-  //               text: "CS1010S",
-  //             },
-  //           ],
-  //         },
-  //         {
-  //           text: "CS1231",
-  //         },
-  //       ],
-  //     },
-  //   ];
   const onItemClick = (event) => {
     event.item.selected = !event.item.selected;
   };
