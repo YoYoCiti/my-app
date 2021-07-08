@@ -14,7 +14,7 @@ function ModuleBox(props) {
     setPlannedModules,
     resetModuleBar,
     semSelected,
-    displayOnly,
+    displaySearch,
   } = props;
   const { currentUser } = useAuth();
   const [error, setError] = useState({
@@ -69,7 +69,7 @@ function ModuleBox(props) {
       <p className="module-title">
         {displayedModule.moduleCode + " " + displayedModule.title}
       </p>
-      {displayedModule.moduleCode && !displayOnly && (
+      {displayedModule.moduleCode && displaySearch && (
         <>
           <Button
             className="add-module-button"

@@ -16,7 +16,33 @@ function PlannerManager(props) {
   });
   const [plannedModules, setPlannedModules] = useState();
   const [semSelected, setSemSelected] = useState(-1);
-  const [displayOnly, setDisplayOnly] = useState(false);
+  const [displaySearch, setDisplaySearch] = useState(false);
+  const [isAlert, setIsAlert] = useState(false);
+
+  const switchModuleBarState = (state) => {
+    switch (state) {
+      case "search":
+        setDisplaySearch(true);
+        setIsAlert(false);
+        setModuleBar(true);
+        break;
+
+      case "display":
+        setDisplaySearch(false);
+        setIsAlert(false);
+        setModuleBar(true);
+        break;
+
+      case "alert":
+        setDisplaySearch(false);
+        setIsAlert(true);
+        setModuleBar(true);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const resetModuleBar = () => {
     setModuleBar(false);
@@ -33,12 +59,11 @@ function PlannerManager(props) {
     <div className={moduleBar ? "container-minimised" : "main-container"}>
       <div>
         <PlannerList
-          setModuleBar={setModuleBar}
           plannedModules={plannedModules}
           setPlannedModules={setPlannedModules}
           setSemSelected={setSemSelected}
           setDisplayedModule={setDisplayedModule}
-          setDisplayOnly={setDisplayOnly}
+          switchModuleBarState={switchModuleBarState}
         />
       </div>
       <ModuleBar
@@ -50,7 +75,8 @@ function PlannerManager(props) {
         setPlannedModules={setPlannedModules}
         resetModuleBar={resetModuleBar}
         semSelected={semSelected}
-        displayOnly={displayOnly}
+        displaySearch={displaySearch}
+        isAlert={isAlert}
       />
     </div>
   );

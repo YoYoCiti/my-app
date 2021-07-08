@@ -1,27 +1,23 @@
 import { BsX, BsPlus } from "react-icons/bs";
-import { FiAlertCircle } from "react-icons/fi";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import AlertIcon from "../AlertIcon";
 import "./PlannerList.css";
-import { useEffect, useState } from "react";
-import { checkPrerequisites } from "../../utils/requisite-checks";
 
 function PlannerList(props) {
   const {
-    setModuleBar,
     plannedModules,
     setPlannedModules,
     setSemSelected,
     setDisplayedModule,
-    setDisplayOnly,
+    switchModuleBarState,
   } = props;
   const { currentUser } = useAuth();
 
   const isLastCard = (title) => title === "Add Modules";
   const handleSearchModule = (semToAdd) => {
-    setDisplayOnly(false);
-    setModuleBar(true);
+    switchModuleBarState("search");
     setDisplayedModule({
       moduleCode: "",
       title: "",
@@ -30,8 +26,7 @@ function PlannerList(props) {
     setSemSelected(semToAdd);
   };
   const handleClickModule = (module) => {
-    setDisplayOnly(true);
-    setModuleBar(true);
+    switchModuleBarState("display");
     setDisplayedModule({
       moduleCode: module.moduleCode,
       title: module.title,
@@ -100,6 +95,7 @@ function PlannerList(props) {
                         plannedModules={plannedModules}
                         module={module}
                         sem={index1}
+                        switchModuleBarState={switchModuleBarState}
                       />
                     </>
                   )}
@@ -115,22 +111,6 @@ function PlannerList(props) {
       )}
     </>
   );
-}
-
-function AlertIcon(props) {
-  const { plannedModules, module, sem } = props;
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    if (!plannedModules) {
-      return;
-    }
-    checkPrerequisites(plannedModules, module, sem).then((res) => {
-      setShow(res !== null);
-      console.log(res);
-    });
-  }, [plannedModules, module, sem]);
-
-  return <>{show && <FiAlertCircle className="alert-button" />}</>;
 }
 
 export default PlannerList;
