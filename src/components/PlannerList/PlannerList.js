@@ -12,6 +12,7 @@ function PlannerList(props) {
     setSemSelected,
     setDisplayedModule,
     switchModuleBarState,
+    setAlertState,
   } = props;
   const { currentUser } = useAuth();
 
@@ -96,6 +97,7 @@ function PlannerList(props) {
                         module={module}
                         sem={index1}
                         switchModuleBarState={switchModuleBarState}
+                        setAlertState={setAlertState}
                       />
                     </>
                   )}

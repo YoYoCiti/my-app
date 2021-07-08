@@ -18,6 +18,12 @@ function PlannerManager(props) {
   const [semSelected, setSemSelected] = useState(-1);
   const [displaySearch, setDisplaySearch] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
+  const [alertState, setAlertState] = useState({
+    moduleCode: "",
+    title: "",
+    message: "",
+    tree: {},
+  });
 
   const switchModuleBarState = (state) => {
     switch (state) {
@@ -64,6 +70,7 @@ function PlannerManager(props) {
           setSemSelected={setSemSelected}
           setDisplayedModule={setDisplayedModule}
           switchModuleBarState={switchModuleBarState}
+          setAlertState={setAlertState}
         />
       </div>
       <ModuleBar
@@ -77,6 +84,7 @@ function PlannerManager(props) {
         semSelected={semSelected}
         displaySearch={displaySearch}
         isAlert={isAlert}
+        alertState={alertState}
       />
     </div>
   );

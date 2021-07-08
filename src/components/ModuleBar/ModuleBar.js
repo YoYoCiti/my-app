@@ -17,6 +17,7 @@ function ModuleBar(props) {
     semSelected,
     displaySearch,
     isAlert,
+    alertState,
   } = props;
 
   return (
@@ -29,7 +30,7 @@ function ModuleBar(props) {
         />
       )}
       {isAlert ? (
-        <AlertBox />
+        <AlertBox alertState={alertState} />
       ) : (
         <ModuleBox
           displayedModule={displayedModule}

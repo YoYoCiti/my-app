@@ -1,0 +1,17 @@
+.module-title,
+.alert-message {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 1rem;
+  margin: 0px;
+}
+
+.module-title {
+  font-size: 24px;
+}
+
+.alert-message {
+  font-size: 16px;
+  padding-top: 0;
+  padding-bottom: 5rem;
+  color: red;
+}
