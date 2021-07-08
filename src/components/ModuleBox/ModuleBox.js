@@ -23,7 +23,7 @@ function ModuleBox(props) {
   });
 
   useEffect(() => {
-    if (!plannedModules || !displayedModule.moduleCode) {
+    if (!plannedModules || !displayedModule.moduleCode || !displayedModule) {
       return;
     }
     const errorState = checkInvalidEntry(
