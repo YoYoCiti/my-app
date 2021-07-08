@@ -17,6 +17,7 @@ function AlertIcon(props) {
     checkPrerequisites(plannedModules, module, sem).then((res) => {
       setShow(res !== null);
       setTree(res);
+      console.log(res);
     });
   }, [plannedModules, module, sem]);
 

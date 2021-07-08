@@ -1,0 +1,73 @@
+import React from "react";
+import { TreeView } from "@progress/kendo-react-treeview";
+
+function TreeSelect(props) {
+  const { alertState } = props;
+  const res = [
+    {
+      and: [
+        {
+          or: ["CS1010S", "CS1010X"],
+        },
+        "CS1231",
+      ],
+    },
+  ];
+
+  const transform = (tree) => {
+    const newTree = tree.map((obj) => {
+      return {
+        text: typeof obj === "string" ? obj : "or" in obj ? "OR" : "AND",
+        expanded: true,
+        items:
+          typeof obj === "string"
+            ? null
+            : "or" in obj
+            ? transform(obj.or)
+            : transform(obj.and),
+      };
+    });
+    return newTree;
+  };
+
+  //   const tree = [
+  //     {
+  //       text: "AND",
+  //       expanded: true,
+  //       items: [
+  //         {
+  //           text: "OR",
+  //           expanded: true,
+  //           items: [
+  //             {
+  //               text: "CS1101S",
+  //             },
+  //             {
+  //               text: "CS1010S",
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           text: "CS1231",
+  //         },
+  //       ],
+  //     },
+  //   ];
+  const onItemClick = (event) => {
+    event.item.selected = !event.item.selected;
+  };
+
+  const onExpandChange = (event) => {
+    event.item.expanded = !event.item.expanded;
+  };
+  return (
+    <TreeView
+      data={transform(alertState.tree)}
+      expandIcons={true}
+      onExpandChange={onExpandChange}
+      aria-multiselectable={true}
+      onItemClick={onItemClick}
+    />
+  );
+}
+export default TreeSelect;
