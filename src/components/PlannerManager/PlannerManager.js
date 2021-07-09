@@ -55,6 +55,12 @@ function PlannerManager(props) {
     setDisplayedModule({ moduleCode: "", title: "", description: "" });
   };
 
+  const isTargetModuleDisplayed = (targetModule) => {
+    return (
+      displayedModule && targetModule.moduleCode === displayedModule.moduleCode
+    );
+  };
+
   useEffect(() => {
     database.users.doc(currentUser?.uid).onSnapshot((doc) => {
       setPlannedModules(doc.data().plannedModules);
@@ -68,11 +74,11 @@ function PlannerManager(props) {
           plannedModules={plannedModules}
           setPlannedModules={setPlannedModules}
           setSemSelected={setSemSelected}
-          displayedModule={displayedModule}
           setDisplayedModule={setDisplayedModule}
           switchModuleBarState={switchModuleBarState}
           setAlertState={setAlertState}
           resetModuleBar={resetModuleBar}
+          isTargetModuleDisplayed={isTargetModuleDisplayed}
         />
       </div>
       <ModuleBar

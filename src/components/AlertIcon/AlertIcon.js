@@ -12,7 +12,7 @@ function AlertIcon(props) {
     switchModuleBarState,
     setAlertState,
     setDisplayedModule,
-    displayedModule,
+    isTargetModuleDisplayed,
   } = props;
   const [show, setShow] = useState(false);
   const [tree, setTree] = useState();
@@ -25,7 +25,7 @@ function AlertIcon(props) {
       setShow(res !== null);
       setTree(res);
       //Triggers immediate update
-      if (displayedModule && displayedModule.moduleCode === module.moduleCode) {
+      if (isTargetModuleDisplayed(module)) {
         setAlertState((prevState) => ({ ...prevState, tree: res }));
       }
     });
