@@ -5,6 +5,7 @@ import { Alert } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Box from "../components/Box";
 import "./login-style.css";
+import firebase from "firebase/app";
 
 function PageSignUp() {
   const history = useHistory();
@@ -58,6 +59,7 @@ function PageSignUp() {
     try {
       setFormState((prevState) => ({ ...prevState, error: "", loading: true }));
       await signup(formState.email, formState.password, formState.username);
+      firebase.auth().currentUser.sendEmailVerification();
       history.push("/");
     } catch (caughtError) {
       setFormState((prevState) => ({

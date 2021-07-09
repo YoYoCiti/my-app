@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import { database } from "../config/firebase";
 
 function ForumPost(props) {
-  const [threadId, setThreadId] = useState();
+  const [post, setPost] = useState([]);
 
   useEffect(() => {
-    console.log(props.match.params.id);
-    setThreadId(props.match.params.id);
+    database.board
+      .doc(props.match.params.id)
+      .get()
+      .then((doc) => setPost(doc.data()));
   }, [props.match.params.id]);
-  return <div>{threadId}this fucker is hidden isnit </div>;
+  return <div>{post.title}</div>;
 }
 
 export default ForumPost;
