@@ -5,6 +5,9 @@ function TreeSelect(props) {
   const { alertState } = props;
 
   const transform = (tree) => {
+    if (!tree) {
+      return;
+    }
     const newTree = tree.map((obj) => {
       return {
         text: typeof obj === "string" ? obj : "or" in obj ? "OR" : "AND",

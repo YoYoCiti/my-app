@@ -10,9 +10,11 @@ function PlannerList(props) {
     plannedModules,
     setPlannedModules,
     setSemSelected,
+    displayedModule,
     setDisplayedModule,
     switchModuleBarState,
     setAlertState,
+    resetModuleBar,
   } = props;
   const { currentUser } = useAuth();
 
@@ -36,6 +38,14 @@ function PlannerList(props) {
   };
 
   function handleRemoveModule(sem, mod) {
+    //Resets module bar if module being removed is displayed in any way
+    if (
+      displayedModule &&
+      displayedModule.moduleCode ===
+        plannedModules[sem].acadSemester[mod].moduleCode
+    ) {
+      resetModuleBar();
+    }
     const newPlannedModules = [
       ...plannedModules.slice(0, sem),
       {
@@ -98,6 +108,8 @@ function PlannerList(props) {
                         sem={index1}
                         switchModuleBarState={switchModuleBarState}
                         setAlertState={setAlertState}
+                        setDisplayedModule={setDisplayedModule}
+                        displayedModule={displayedModule}
                       />
                     </>
                   )}

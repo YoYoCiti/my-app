@@ -68,9 +68,11 @@ function PlannerManager(props) {
           plannedModules={plannedModules}
           setPlannedModules={setPlannedModules}
           setSemSelected={setSemSelected}
+          displayedModule={displayedModule}
           setDisplayedModule={setDisplayedModule}
           switchModuleBarState={switchModuleBarState}
           setAlertState={setAlertState}
+          resetModuleBar={resetModuleBar}
         />
       </div>
       <ModuleBar

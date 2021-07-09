@@ -8,7 +8,7 @@ export async function checkPrerequisites(
 ) {
   const modulesTaken = getModulesTaken(plannedModules, semSelected);
   const prereqTree = await getPrereqTree(addedModule.moduleCode);
-  console.log(prereqTree);
+
   function traverseTree(tree) {
     if (typeof tree === "undefined") {
       return null;
@@ -30,7 +30,11 @@ export async function checkPrerequisites(
       const unfulfilled = tree.and
         .map((child) => traverseTree(child))
         .filter((elem) => elem !== null);
-      return unfulfilled.length === 0 ? null : [{ and: unfulfilled.flat() }];
+      return unfulfilled.length === 0
+        ? null
+        : unfulfilled.length === 1
+        ? unfulfilled.flat()
+        : [{ and: unfulfilled.flat() }];
     }
   }
 
