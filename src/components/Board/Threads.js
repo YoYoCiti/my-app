@@ -1,7 +1,5 @@
 import React from "react";
-import TimeAgo from "react-timeago";
-// import Box from "../Box";
-import { Link } from "react-router-dom";
+import Thread from "./Thread";
 import enStrings from "react-timeago/lib/language-strings/en-short";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
@@ -23,28 +21,6 @@ function Threads(props) {
         })}
       </div>
     </>
-  );
-}
-
-function Thread(props) {
-  const { thread, formatter } = props;
-  return (
-    <div className="thread-box" key={thread.id}>
-      <Link to={`/board/${thread.id}`}> Click me </Link>
-      <div>
-        {thread.id}
-        <span className="thread-user">{thread.user}&nbsp;</span>
-        <TimeAgo
-          date={thread.createdAt}
-          formatter={formatter}
-          minPeriod="MINUTE"
-          className="thread-time"
-        />
-      </div>
-      <div className="thread-title">{thread.title}</div>
-      <div className="thread-text">{thread.content}</div>
-      <div className="thread-time">{thread.createdAt}</div>
-    </div>
   );
 }
 
