@@ -10,7 +10,9 @@ function Board() {
   const [threads, setThreads] = useState([]);
   const [newThreadUser, setNewThreadUser] = useState();
   const [postNewThread, setPostNewThread] = useState(false);
+  const [isVerified, setIsVerified] = useState();
   useEffect(() => {
+    setIsVerified(currentUser.emailVerified);
     database.users
       .doc(currentUser?.uid)
       .get()
@@ -48,7 +50,9 @@ function Board() {
 
   return (
     <>
-      <button onClick={() => setPostNewThread(true)}>Create Post</button>
+      <button onClick={() => setPostNewThread(true)} disabled={!isVerified}>
+        Create Post
+      </button>
       {postNewThread && (
         <PostThread
           threads={threads}

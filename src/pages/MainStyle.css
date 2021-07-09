@@ -4,7 +4,7 @@
 
 .planit-margin-wrapper {
   display: grid;
-  grid-template-columns: 13% 1fr;
+  grid-template-columns: 10rem 1fr;
 }
 
 .sub1 {
