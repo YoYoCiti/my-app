@@ -3,7 +3,7 @@ import "./AutoCompleteSearch.css";
 import { Dropdown, FormControl, InputGroup } from "react-bootstrap";
 
 function AutoCompleteSearch(props) {
-  const { setDisplayedModule, moduleData } = props;
+  const { setDisplayedModule, moduleData, semSelected } = props;
   const [searchText, setSearchText] = useState("");
   const [display, setDisplay] = useState(false);
 
@@ -19,7 +19,9 @@ function AutoCompleteSearch(props) {
     <div>
       <InputGroup>
         <FormControl
-          placeholder="Search for module code"
+          placeholder={`Search for module to add in Y${
+            Math.floor(semSelected / 2) + 1
+          }S${semSelected % 2 === 0 ? 1 : 2}`}
           onChange={handleSearchChange}
           value={searchText}
           className="search-bar"

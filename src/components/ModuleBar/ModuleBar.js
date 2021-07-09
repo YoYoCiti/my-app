@@ -27,6 +27,7 @@ function ModuleBar(props) {
         <AutoCompleteSearch
           setDisplayedModule={setDisplayedModule}
           moduleData={moduleData}
+          semSelected={semSelected}
         />
       )}
       {isAlert ? (
