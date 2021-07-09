@@ -48,10 +48,17 @@ function SuggestionsList(props) {
     setDisplayedModule,
     moduleData,
   } = props;
-  const filteredList = moduleData.filter(
-    (item) =>
-      item.moduleCode.toLowerCase().indexOf(searchText.toLowerCase()) > -1
-  );
+
+  const filteredByCode = moduleData.filter((item) => {
+    const regex = new RegExp(`${searchText}`, "gi");
+    return item.moduleCode.match(regex);
+  });
+  const filteredByTitle = moduleData.filter((item) => {
+    const regex = new RegExp(`${searchText}`, "gi");
+    return item.title.match(regex);
+  });
+
+  const filteredList = filteredByCode.length ? filteredByCode : filteredByTitle;
 
   const handleSelectItem = (i) => {
     setSearchText("");
