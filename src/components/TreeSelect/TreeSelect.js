@@ -1,9 +1,10 @@
 import React from "react";
 import { TreeView } from "@progress/kendo-react-treeview";
+import "@progress/kendo-theme-default/dist/all.css";
+import "./TreeSelect.css";
 
 function TreeSelect(props) {
   const { alertState } = props;
-
   const transform = (tree) => {
     if (!tree) {
       return;
@@ -35,8 +36,8 @@ function TreeSelect(props) {
       data={transform(alertState.tree)}
       expandIcons={true}
       onExpandChange={onExpandChange}
-      aria-multiselectable={true}
       onItemClick={onItemClick}
+      className="tree"
     />
   );
 }
