@@ -1,3 +1,7 @@
 .tree {
   padding-left: 1rem;
 }
+
+.tree-item-button {
+  margin-left: 0.5rem;
+}
