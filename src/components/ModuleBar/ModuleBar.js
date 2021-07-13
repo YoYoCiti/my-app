@@ -31,7 +31,12 @@ function ModuleBar(props) {
         />
       )}
       {isAlert ? (
-        <AlertBox alertState={alertState} />
+        <AlertBox
+          alertState={alertState}
+          moduleData={moduleData}
+          plannedModules={plannedModules}
+          setPlannedModules={setPlannedModules}
+        />
       ) : (
         <ModuleBox
           displayedModule={displayedModule}
