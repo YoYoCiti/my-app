@@ -13,13 +13,12 @@
 
 /* Add more to default Box styling */
 .Box {
-  opacity: 0.9;
   width: 500px;
   height: 500px;
   margin-left: auto;
   margin-right: auto;
   top: 50%;
-  left: 70%;
+  left: 50%;
   position: fixed;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -53,13 +52,4 @@
 .submit-area {
   box-sizing: border-box;
   height: 60px;
-}
-
-.tempsetting {
-  background-image: url(../img/signup_backg.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
-  min-width: 800px;
 }
