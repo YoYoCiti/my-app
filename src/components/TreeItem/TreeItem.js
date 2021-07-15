@@ -56,6 +56,20 @@ function TreeItem(props) {
       .update({ plannedModules: newPlannedModules });
   }
 
+  async function handleExemptModule() {
+    const ref = database.users.doc(currentUser?.uid);
+    await database.db.runTransaction(async (t) => {
+      const doc = await t.get(ref);
+      const exemptedModules = doc.data().exemptedModules;
+      if (exemptedModules) {
+        exemptedModules.push(item);
+        t.update(ref, { exemptedModules: exemptedModules });
+      } else {
+        t.update(ref, { exemptedModules: [item] });
+      }
+    });
+  }
+
   return (
     <div className="item-container">
       <span className="item">{item}</span>
@@ -66,7 +80,12 @@ function TreeItem(props) {
         items={dropdownItems}
         onItemClick={(event) => handleAddModule(event.itemIndex)}
       />
-      <Button variant="secondary" className="tree-item-button" size="sm">
+      <Button
+        variant="secondary"
+        className="tree-item-button"
+        size="sm"
+        onClick={handleExemptModule}
+      >
         Exempt/Took Equivalent
       </Button>
     </div>

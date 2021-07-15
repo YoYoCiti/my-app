@@ -4,7 +4,7 @@
   background-color: #1976d2;
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: fixed;
 }
 
 .sidebarList {
