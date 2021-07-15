@@ -5,7 +5,13 @@ import "@progress/kendo-theme-default/dist/all.css";
 import "./TreeSelect.css";
 
 function TreeSelect(props) {
-  const { alertState, moduleData, plannedModules, setPlannedModules } = props;
+  const {
+    alertState,
+    moduleData,
+    plannedModules,
+    setPlannedModules,
+    setExemptedModules,
+  } = props;
   const transform = (tree) => {
     if (!tree) {
       return;
@@ -19,6 +25,7 @@ function TreeSelect(props) {
               moduleData={moduleData}
               plannedModules={plannedModules}
               setPlannedModules={setPlannedModules}
+              setExemptedModules={setExemptedModules}
             />
           ) : "or" in obj ? (
             "OR"

@@ -13,23 +13,27 @@ function AlertIcon(props) {
     setAlertState,
     setDisplayedModule,
     isTargetModuleDisplayed,
+    exemptedModules,
   } = props;
   const [show, setShow] = useState(false);
   const [tree, setTree] = useState();
 
   useEffect(() => {
-    if (!plannedModules) {
+    if (!plannedModules || !exemptedModules) {
       return;
     }
-    checkPrerequisites(plannedModules, module, sem).then((res) => {
-      setShow(res !== null);
-      setTree(res);
-      //Triggers immediate update
-      if (isTargetModuleDisplayed(module)) {
-        setAlertState((prevState) => ({ ...prevState, tree: res }));
+    console.log(exemptedModules);
+    checkPrerequisites(plannedModules, module, sem, exemptedModules).then(
+      (res) => {
+        setShow(res !== null);
+        setTree(res);
+        //Triggers immediate update
+        if (isTargetModuleDisplayed(module)) {
+          setAlertState((prevState) => ({ ...prevState, tree: res }));
+        }
       }
-    });
-  }, [plannedModules, module, sem]);
+    );
+  }, [plannedModules, module, sem, exemptedModules]);
 
   function handleClickAlert() {
     switchModuleBarState("alert");

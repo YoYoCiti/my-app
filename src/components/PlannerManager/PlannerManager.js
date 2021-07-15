@@ -15,6 +15,7 @@ function PlannerManager(props) {
     description: "",
   });
   const [plannedModules, setPlannedModules] = useState();
+  const [exemptedModules, setExemptedModules] = useState();
   const [semSelected, setSemSelected] = useState(-1);
   const [displaySearch, setDisplaySearch] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
@@ -65,6 +66,15 @@ function PlannerManager(props) {
     database.users.doc(currentUser?.uid).onSnapshot((doc) => {
       setPlannedModules(doc.data().plannedModules);
     });
+    database.users.doc(currentUser?.uid).onSnapshot((doc) => {
+      const res = doc.data().exemptedModules;
+      console.log(res);
+      if (res) {
+        setExemptedModules(res);
+      } else {
+        setExemptedModules([]);
+      }
+    });
   }, [currentUser]);
 
   return (
@@ -79,6 +89,7 @@ function PlannerManager(props) {
           setAlertState={setAlertState}
           resetModuleBar={resetModuleBar}
           isTargetModuleDisplayed={isTargetModuleDisplayed}
+          exemptedModules={exemptedModules}
         />
       </div>
       <ModuleBar
@@ -93,6 +104,7 @@ function PlannerManager(props) {
         displaySearch={displaySearch}
         isAlert={isAlert}
         alertState={alertState}
+        setExemptedModules={setExemptedModules}
       />
     </div>
   );

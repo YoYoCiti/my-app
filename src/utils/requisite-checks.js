@@ -4,9 +4,14 @@ Note that this function returns a promise whose results are either null or the a
 export async function checkPrerequisites(
   plannedModules,
   addedModule,
-  semSelected
+  semSelected,
+  exemptedModules
 ) {
-  const modulesTaken = getModulesTaken(plannedModules, semSelected);
+  const modulesTaken = getModulesTaken(
+    plannedModules,
+    semSelected,
+    exemptedModules
+  );
   const prereqTree = await getPrereqTree(addedModule.moduleCode);
 
   function traverseTree(tree) {
@@ -42,8 +47,8 @@ export async function checkPrerequisites(
 }
 
 /*Convert plannedModules into array of modules that have been taken before the given semester*/
-function getModulesTaken(plannedModules, sem) {
-  let modulesTaken = [];
+function getModulesTaken(plannedModules, sem, exemptedModules) {
+  let modulesTaken = exemptedModules.slice();
   plannedModules.slice(0, sem).forEach((element) => {
     element.acadSemester.forEach((mod) => {
       if (mod.moduleCode !== "") {

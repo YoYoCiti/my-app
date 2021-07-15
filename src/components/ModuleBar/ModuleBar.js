@@ -18,6 +18,7 @@ function ModuleBar(props) {
     displaySearch,
     isAlert,
     alertState,
+    setExemptedModules,
   } = props;
 
   return (
@@ -36,6 +37,7 @@ function ModuleBar(props) {
           moduleData={moduleData}
           plannedModules={plannedModules}
           setPlannedModules={setPlannedModules}
+          setExemptedModules={setExemptedModules}
         />
       ) : (
         <ModuleBox

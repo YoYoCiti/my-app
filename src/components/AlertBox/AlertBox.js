@@ -3,7 +3,13 @@ import TreeSelect from "../TreeSelect";
 import "./AlertBox.css";
 
 function AlertBox(props) {
-  const { alertState, moduleData, plannedModules, setPlannedModules } = props;
+  const {
+    alertState,
+    moduleData,
+    plannedModules,
+    setPlannedModules,
+    setExemptedModules,
+  } = props;
   return (
     <>
       <p className="module-title">
@@ -19,6 +25,7 @@ function AlertBox(props) {
         moduleData={moduleData}
         plannedModules={plannedModules}
         setPlannedModules={setPlannedModules}
+        setExemptedModules={setExemptedModules}
       />
     </>
   );

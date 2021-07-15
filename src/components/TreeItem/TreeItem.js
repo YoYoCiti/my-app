@@ -6,7 +6,13 @@ import { checkInvalidEntry } from "../../utils/planner-utils";
 import "./TreeItem.css";
 
 function TreeItem(props) {
-  const { item, moduleData, plannedModules, setPlannedModules } = props;
+  const {
+    item,
+    moduleData,
+    plannedModules,
+    setPlannedModules,
+    setExemptedModules,
+  } = props;
   const { currentUser } = useAuth();
   const dropdownItems = [
     "Y1S1",
@@ -64,8 +70,10 @@ function TreeItem(props) {
       if (exemptedModules) {
         exemptedModules.push(item);
         t.update(ref, { exemptedModules: exemptedModules });
+        setExemptedModules(exemptedModules);
       } else {
         t.update(ref, { exemptedModules: [item] });
+        setExemptedModules([item]);
       }
     });
   }

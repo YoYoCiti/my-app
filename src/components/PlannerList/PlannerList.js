@@ -15,6 +15,7 @@ function PlannerList(props) {
     setAlertState,
     resetModuleBar,
     isTargetModuleDisplayed,
+    exemptedModules,
   } = props;
   const { currentUser } = useAuth();
 
@@ -106,6 +107,7 @@ function PlannerList(props) {
                         setAlertState={setAlertState}
                         setDisplayedModule={setDisplayedModule}
                         isTargetModuleDisplayed={isTargetModuleDisplayed}
+                        exemptedModules={exemptedModules}
                       />
                     </>
                   )}
