@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
 function Thread(props) {
   const { thread, formatter } = props;
+  const history = useHistory();
+
+  function handleClick() {
+    history.push(`/board/${thread.id}`);
+  }
+
   return (
-    <div className="thread-box" key={thread.id}>
-      <Link to={`/board/${thread.id}`}> Click me </Link>
+    <div className="thread-box" key={thread.id} onClick={handleClick}>
       <div>
         <span className="thread-user">{thread.user}&nbsp;</span>
         <TimeAgo
