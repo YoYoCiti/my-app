@@ -68,7 +68,6 @@ function PlannerManager(props) {
     });
     database.users.doc(currentUser?.uid).onSnapshot((doc) => {
       const res = doc.data().exemptedModules;
-      console.log(res);
       if (res) {
         setExemptedModules(res);
       } else {

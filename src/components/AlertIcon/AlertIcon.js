@@ -22,7 +22,6 @@ function AlertIcon(props) {
     if (!plannedModules || !exemptedModules) {
       return;
     }
-    console.log(exemptedModules);
     checkPrerequisites(plannedModules, module, sem, exemptedModules).then(
       (res) => {
         setShow(res !== null);
