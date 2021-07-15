@@ -12,11 +12,12 @@ function Sidebar() {
           return (
             <li
               key={index}
-              className="row"
+              className="sidebar-row"
               id={history.location.pathname === item.path ? "active" : ""}
               onClick={() => history.push(item.path)}
             >
-              <span>{item.title}</span>
+              {item.icon}
+              <span className="sidebar-row-text">{item.title}</span>
             </li>
           );
         })}

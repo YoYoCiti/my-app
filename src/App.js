@@ -17,7 +17,8 @@ function App() {
   function AuthenicatedRoutes() {
     return (
       <>
-        <div className="planit-margin-wrapper">
+        <HeaderBar />
+        <div className="planit-margin-wrapper planner-backg">
           <Sidebar className="sub1" />
           <div className="sub2">
             <Switch>
@@ -36,7 +37,6 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <HeaderBar />
         <Switch>
           <Route path="/signup" component={PageSignUp} />
           <Route path="/login" component={PageLogin} />
