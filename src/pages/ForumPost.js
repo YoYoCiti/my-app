@@ -11,13 +11,7 @@ function ForumPost(props) {
       .get()
       .then((doc) => setPost(doc.data()));
   }, [props.match.params.id]);
-  return (
-    <div>
-      <p>{post.title}</p>
-      <p>{post.user}</p>
-      <p>{post.createdAt}</p>
-    </div>
-  );
+  return <div>{post.title}</div>;
 }
 
 export default ForumPost;

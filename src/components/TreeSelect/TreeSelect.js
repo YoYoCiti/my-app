@@ -1,16 +1,30 @@
 import React from "react";
 import { TreeView } from "@progress/kendo-react-treeview";
+import TreeItem from "../TreeItem";
+import "@progress/kendo-theme-default/dist/all.css";
+import "./TreeSelect.css";
 
 function TreeSelect(props) {
-  const { alertState } = props;
-
+  const { alertState, moduleData, plannedModules, setPlannedModules } = props;
   const transform = (tree) => {
     if (!tree) {
       return;
     }
     const newTree = tree.map((obj) => {
       return {
-        text: typeof obj === "string" ? obj : "or" in obj ? "OR" : "AND",
+        text:
+          typeof obj === "string" ? (
+            <TreeItem
+              item={obj}
+              moduleData={moduleData}
+              plannedModules={plannedModules}
+              setPlannedModules={setPlannedModules}
+            />
+          ) : "or" in obj ? (
+            "OR"
+          ) : (
+            "AND"
+          ),
         expanded: true,
         items:
           typeof obj === "string"
@@ -23,10 +37,6 @@ function TreeSelect(props) {
     return newTree;
   };
 
-  const onItemClick = (event) => {
-    event.item.selected = !event.item.selected;
-  };
-
   const onExpandChange = (event) => {
     event.item.expanded = !event.item.expanded;
   };
@@ -35,9 +45,9 @@ function TreeSelect(props) {
       data={transform(alertState.tree)}
       expandIcons={true}
       onExpandChange={onExpandChange}
-      aria-multiselectable={true}
-      onItemClick={onItemClick}
+      className="tree"
     />
   );
 }
+
 export default TreeSelect;
