@@ -52,7 +52,8 @@ function getModulesTaken(plannedModules, sem, exemptedModules) {
   plannedModules.slice(0, sem).forEach((element) => {
     element.acadSemester.forEach((mod) => {
       if (mod.moduleCode !== "") {
-        //Insert non-variant version
+        modulesTaken.push(mod.moduleCode);
+        //Insert non-variant version as well
         const match = /([A-Z]+\d+)[A-Z]+$/gi.exec(mod.moduleCode);
         modulesTaken.push(match ? match[1] : mod.moduleCode);
       }
