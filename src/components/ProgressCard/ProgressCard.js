@@ -11,19 +11,19 @@ function ProgressCard() {
             variant="success"
             now={40}
             label={`40MCs`}
-            max={120}
+            max={160}
             key={1}
           />
           <ProgressBar
             variant="warning"
             now={60}
             label={`60MCs`}
-            max={120}
+            max={160}
             key={2}
           />
         </ProgressBar>
         <span style={{ marginRight: "1rem", textAlign: "end" }}>
-          90/120MCs To Graduation
+          90/160MCs To Graduation
         </span>
       </div>
     </div>
