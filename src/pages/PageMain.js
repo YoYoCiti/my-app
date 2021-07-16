@@ -1,9 +1,13 @@
 import ProfileCard from "../components/ProfileCard";
+import ProgressCard from "../components/ProgressCard";
 
 function PageMain() {
   return (
     <div className="planner-backg">
-      <ProfileCard />
+      <div className="main-container">
+        <ProfileCard />
+        <ProgressCard />
+      </div>
     </div>
   );
 }

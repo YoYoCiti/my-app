@@ -38,26 +38,22 @@ function ProfileCard() {
   }
 
   return (
-    <div className="main-container">
-      <div className="profile-card">
-        <div className="profile-card-body">
-          <div className="profile-pic">
-            Profile Picture currently not supported
-          </div>
-          <h1 style={{ padding: "1rem 0 1rem 0" }}>My Profile</h1>
-          <p>Username: {username}</p>
-          <p>Email: {currentUser.email}</p>
-          <div>
-            <DropDownButton
-              text="Remove my Exempted/Precluded Modules"
-              primary={true}
-              items={exemptedModules}
-              disabled={!exemptedModules || exemptedModules.length === 0}
-              onItemClick={(event) =>
-                handleRemoveExemptedModule(event.itemIndex)
-              }
-            />
-          </div>
+    <div className="profile-card">
+      <div className="profile-card-body">
+        <div className="profile-pic">
+          Profile Picture currently not supported
+        </div>
+        <h1 style={{ padding: "1rem 0 1rem 0" }}>My Profile</h1>
+        <p>Username: {username}</p>
+        <p>Email: {currentUser.email}</p>
+        <div>
+          <DropDownButton
+            text="Remove my Exempted/Precluded Modules"
+            primary={true}
+            items={exemptedModules}
+            disabled={!exemptedModules || exemptedModules.length === 0}
+            onItemClick={(event) => handleRemoveExemptedModule(event.itemIndex)}
+          />
         </div>
       </div>
     </div>
