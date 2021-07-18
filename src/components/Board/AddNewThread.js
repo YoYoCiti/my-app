@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { database } from "../../config/firebase";
 import Box from "../Box";
 import Form from "react-bootstrap/Form";
+import firebase from "firebase/app";
 
 function PostThread(props) {
   const { newThreadUser, setPostNewThread } = props;
@@ -21,9 +22,12 @@ function PostThread(props) {
         title: newThreadTitle,
         content: newThreadText,
         user: newThreadUser,
-        createdAt: time.toLocaleString(),
+        createdAt: time.valueOf(),
+        timeDisplay: time.toLocaleString(),
       })
-      .then((docRef) => docRef.update({ id: docRef.id }));
+      .then((docRef) => {
+        docRef.update({ id: docRef.id });
+      });
   }
 
   return (

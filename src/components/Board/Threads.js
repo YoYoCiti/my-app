@@ -5,7 +5,7 @@ import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
 function Threads(props) {
   const formatter = buildFormatter(enStrings);
-  const { threads } = props;
+  const { threads, isVerified, newThreadUser } = props;
 
   if (!threads.length) {
     return <p>No threads here yet</p>;
@@ -16,7 +16,13 @@ function Threads(props) {
       <div>
         {threads.map((thread) => {
           return (
-            <Thread thread={thread} formatter={formatter} key={thread.id} />
+            <Thread
+              thread={thread}
+              formatter={formatter}
+              key={thread.id}
+              isVerified={isVerified}
+              newThreadUser={newThreadUser}
+            />
           );
         })}
       </div>
