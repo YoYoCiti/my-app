@@ -50,7 +50,7 @@ function Board() {
 
   return (
     <>
-      <button onClick={() => setPostNewThread(true)} disabled={!isVerified}>
+      <button onClick={() => setPostNewThread(true)} disabled={false}>
         Create Post
       </button>
       {postNewThread && (
@@ -61,7 +61,11 @@ function Board() {
           setPostNewThread={setPostNewThread}
         />
       )}
-      <Threads threads={threads} />
+      <Threads
+        threads={threads}
+        isVerified={isVerified}
+        newThreadUser={newThreadUser}
+      />
     </>
   );
 }

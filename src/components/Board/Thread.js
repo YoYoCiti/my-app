@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import TimeAgo from "react-timeago";
 
@@ -15,7 +14,7 @@ function Thread(props) {
       <div>
         <span className="thread-user">{thread.user}&nbsp;</span>
         <TimeAgo
-          date={thread.createdAt}
+          date={thread.timeDisplay}
           formatter={formatter}
           minPeriod="MINUTE"
           className="thread-time"
@@ -23,9 +22,8 @@ function Thread(props) {
       </div>
       <div className="thread-title">{thread.title}</div>
       <div className="thread-text">{thread.content}</div>
-      <div className="thread-time">{thread.createdAt}</div>
+      <div className="thread-time">{thread.timeDisplay}</div>
     </div>
   );
 }
-
 export default Thread;
