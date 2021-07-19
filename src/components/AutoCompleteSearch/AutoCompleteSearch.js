@@ -49,14 +49,13 @@ function SuggestionsList(props) {
     moduleData,
   } = props;
 
-  const filteredByCode = moduleData.filter((item) => {
-    const regex = new RegExp(`${searchText}`, "gi");
-    return item.moduleCode.match(regex);
-  });
-  const filteredByTitle = moduleData.filter((item) => {
-    const regex = new RegExp(`${searchText}`, "gi");
-    return item.title.match(regex);
-  });
+  const filteredByCode = moduleData.filter(
+    (item) =>
+      item.moduleCode.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+  );
+  const filteredByTitle = moduleData.filter(
+    (item) => item.title.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+  );
 
   const filteredList = filteredByCode.length ? filteredByCode : filteredByTitle;
 
