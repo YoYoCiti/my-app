@@ -47,6 +47,7 @@ function ModuleBox(props) {
             moduleCode: displayedModule.moduleCode,
             title: displayedModule.title,
             description: displayedModule.description,
+            moduleCredit: parseInt(displayedModule.moduleCredit),
           },
           {
             moduleCode: "",
@@ -68,6 +69,10 @@ function ModuleBox(props) {
     <div>
       <p className="module-title">
         {displayedModule.moduleCode + " " + displayedModule.title}
+      </p>
+      <p className="module-credit">
+        {displayedModule.moduleCredit !== -1 &&
+          `${displayedModule.moduleCredit}MCs`}
       </p>
       {displayedModule.moduleCode && displaySearch && (
         <>

@@ -13,6 +13,7 @@ function PlannerManager(props) {
     moduleCode: "",
     title: "",
     description: "",
+    moduleCredit: -1,
   });
   const [plannedModules, setPlannedModules] = useState();
   const [exemptedModules, setExemptedModules] = useState();
@@ -53,7 +54,12 @@ function PlannerManager(props) {
 
   const resetModuleBar = () => {
     setModuleBar(false);
-    setDisplayedModule({ moduleCode: "", title: "", description: "" });
+    setDisplayedModule({
+      moduleCode: "",
+      title: "",
+      description: "",
+      moduleCredit: -1,
+    });
   };
 
   const isTargetModuleDisplayed = (targetModule) => {

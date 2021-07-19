@@ -46,6 +46,7 @@ function TreeItem(props) {
             moduleCode: module.moduleCode,
             title: module.title,
             description: module.description,
+            moduleCredit: parseInt(module.moduleCredit),
           },
           {
             moduleCode: "",

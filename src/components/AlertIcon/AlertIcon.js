@@ -41,6 +41,7 @@ function AlertIcon(props) {
       moduleCode: module.moduleCode,
       title: module.title,
       description: module.description,
+      moduleCredit: module.moduleCredit,
     });
     setAlertState({
       moduleCode: module.moduleCode,

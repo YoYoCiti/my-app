@@ -1,5 +1,6 @@
 .module-title,
-.module-description {
+.module-description,
+.module-credit {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   padding: 1rem;
   margin: 0px;
@@ -14,6 +15,12 @@
   text-align: justify;
   padding-top: 0;
   padding-bottom: 5rem;
+}
+
+.module-credit {
+  font-size: 16px;
+  padding-top: 0;
+  color: grey;
 }
 
 .add-module-button {

@@ -26,6 +26,7 @@ function PlannerList(props) {
       moduleCode: "",
       title: "",
       description: "",
+      moduleCredit: -1,
     });
     setSemSelected(semToAdd);
   };
@@ -35,6 +36,7 @@ function PlannerList(props) {
       moduleCode: module.moduleCode,
       title: module.title,
       description: module.description,
+      moduleCredit: module.moduleCredit,
     });
   };
 
