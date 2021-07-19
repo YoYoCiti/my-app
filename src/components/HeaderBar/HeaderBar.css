@@ -1,3 +1,9 @@
 .title {
   flex-grow: 1;
 }
+
+.title img {
+  width: 100px;
+  padding-top: 10px;
+  cursor: pointer;
+}
