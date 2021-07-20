@@ -50,7 +50,7 @@ function Board() {
 
   return (
     <>
-      <button onClick={() => setPostNewThread(true)} disabled={false}>
+      <button onClick={() => setPostNewThread(true)} disabled={!isVerified}>
         Create Post
       </button>
       {postNewThread && (
