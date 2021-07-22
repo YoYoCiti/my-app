@@ -1,4 +1,4 @@
-.thread-title {
+.threadTitle {
   padding-right: 100px;
   font-weight: 500;
   display: block;
@@ -6,17 +6,17 @@
   font-size: 18px;
 }
 
-.thread-time {
+.threadTime {
   font-weight: 150;
   font-size: 12px;
 }
 
-.thread-user {
+.threadUser {
   font-weight: 350;
   font-size: 14px;
 }
 
-.thread-box {
+.threadBox {
   flex-direction: column;
   align-content: space-around;
   flex-grow: 0;
@@ -28,6 +28,10 @@
   background-color: white;
 }
 
-.thread-box:hover {
+.threadBox:hover {
   cursor: pointer;
+}
+
+.Box {
+  background-color: red;
 }

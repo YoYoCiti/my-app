@@ -52,52 +52,52 @@ function PageForgotPassword() {
 
   return (
     <>
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </head>
-      <Box>
-        <h2 className="login-header">Password Reset</h2>
-        <form
-          onSubmit={handleResetPassword}
-          action="/action_page.php"
-          className="login-form"
-        >
-          {formState.error && <Alert variant="danger">{formState.error}</Alert>}
-          {message && <Alert variant="success">{message}</Alert>}
-          <div>
-            <label class="sr-only">Enter email:</label>
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Enter email"
-              id="email"
-              name="email"
-              value={formState.email}
-              onChange={handleOnChange}
-            />
-          </div>
-          <div className="submit-area">
-            <button
-              type="submit"
-              className="login-btn"
-              value="Confirm"
-              disabled={formState.loading}
-            >
-              Reset Password
-            </button>
-          </div>
-          <div>
-            <Link to="/login" value="Create Account">
-              Login
-            </Link>{" "}
-            | {""}
-            <Link to="/signup" value="Create Account">
-              Create one
-            </Link>
-          </div>
-        </form>
-      </Box>
+      <div className="login-body">
+        <Box>
+          <h2 className="login-header">Password Reset</h2>
+          <form
+            onSubmit={handleResetPassword}
+            action="/action_page.php"
+            className="login-form"
+          >
+            {formState.error && (
+              <Alert variant="danger">{formState.error}</Alert>
+            )}
+            {message && <Alert variant="success">{message}</Alert>}
+            <div>
+              <label class="sr-only">Enter email:</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter email"
+                id="email"
+                name="email"
+                value={formState.email}
+                onChange={handleOnChange}
+              />
+            </div>
+            <div className="submit-area">
+              <button
+                type="submit"
+                className="login-btn"
+                value="Confirm"
+                disabled={formState.loading}
+              >
+                Reset Password
+              </button>
+            </div>
+            <div>
+              <Link to="/login" value="Create Account">
+                Login
+              </Link>{" "}
+              | {""}
+              <Link to="/signup" value="Create Account">
+                Create one
+              </Link>
+            </div>
+          </form>
+        </Box>
+      </div>
     </>
   );
 }

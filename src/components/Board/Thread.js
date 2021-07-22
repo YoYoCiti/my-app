@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom";
 import TimeAgo from "react-timeago";
+import styles from "./Board.module.css";
 
 function Thread(props) {
   const { thread, formatter } = props;
@@ -10,19 +11,19 @@ function Thread(props) {
   }
 
   return (
-    <div className="thread-box" key={thread.id} onClick={handleClick}>
+    <div className={styles.threadBox} key={thread.id} onClick={handleClick}>
       <div>
-        <span className="thread-user">{thread.user}&nbsp;</span>
+        <span className={styles.threadUser}>{thread.user}&nbsp;</span>
         <TimeAgo
           date={thread.timeDisplay}
           formatter={formatter}
           minPeriod="MINUTE"
-          className="thread-time"
+          className={styles.threadTime}
         />
       </div>
-      <div className="thread-title">{thread.title}</div>
-      <div className="thread-text">{thread.content}</div>
-      <div className="thread-time">{thread.timeDisplay}</div>
+      <div className={styles.threadTitle}>{thread.title}</div>
+      <div className={styles.threadText}>{thread.content}</div>
+      <div className={styles.threadTime}>{thread.timeDisplay}</div>
     </div>
   );
 }

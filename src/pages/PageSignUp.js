@@ -73,86 +73,88 @@ function PageSignUp() {
   }
 
   return (
-    <div className="login-container">
-      <div className="login-col ">
-        <img src={logo} alt="Planit Logo" />
-      </div>
-      <div className="login-col">
-        <Box>
-          <h2 className="login-header">Sign Up</h2>
-          <form onSubmit={handleSignUp} className="login-form">
-            {formState.error && (
-              <Alert variant="danger">{formState.error}</Alert>
-            )}
-            <div>
-              <label class="sr-only">Enter your email:</label>
-              <input
-                class="form-control"
-                type="email"
-                id="email"
-                name="email"
-                value={formState.email}
-                onChange={handleOnChange}
-                placeholder="Enter your email"
-              />
-            </div>
-            <div>
-              <label class="sr-only" for="username">
-                Create username:
-              </label>
-              <input
-                class="form-control"
-                type="username"
-                name="username"
-                value={formState.username}
-                onChange={handleOnChange}
-                placeholder="Create username"
-              />
-            </div>
-            <div>
-              <label class="sr-only" for="password">
-                Create password:
-              </label>
-              <input
-                class="form-control"
-                type="password"
-                name="password"
-                value={formState.password}
-                onChange={handleOnChange}
-                placeholder="Create password"
-                minlength="8"
-              />
-            </div>
-            <div>
-              <label class="sr-only" for="confirmPassword">
-                Confirm password:
-              </label>
-              <input
-                class="form-control"
-                type="password"
-                name="confirmPassword"
-                value={formState.confirmPassword}
-                onChange={handleOnChange}
-                placeholder="Confirm password"
-              />
-            </div>
-            <div>
-              <button
-                type="submit"
-                className="login-btn"
-                disabled={formState.loading}
-              >
-                Create Account
-              </button>
-            </div>
-            <div className="login-account">
-              <span>Already have an account?&nbsp;</span>
-              <Link to="/login" value="Back to Login">
-                Log in
-              </Link>
-            </div>
-          </form>
-        </Box>
+    <div className="login-body">
+      <div className="login-container">
+        <div className="login-col ">
+          <img src={logo} alt="Planit Logo" />
+        </div>
+        <div className="login-col">
+          <Box>
+            <h2 className="login-header">Sign Up</h2>
+            <form onSubmit={handleSignUp} className="login-form">
+              {formState.error && (
+                <Alert variant="danger">{formState.error}</Alert>
+              )}
+              <div>
+                <label class="sr-only">Enter your email:</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleOnChange}
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div>
+                <label class="sr-only" for="username">
+                  Create username:
+                </label>
+                <input
+                  class="form-control"
+                  type="username"
+                  name="username"
+                  value={formState.username}
+                  onChange={handleOnChange}
+                  placeholder="Create username"
+                />
+              </div>
+              <div>
+                <label class="sr-only" for="password">
+                  Create password:
+                </label>
+                <input
+                  class="form-control"
+                  type="password"
+                  name="password"
+                  value={formState.password}
+                  onChange={handleOnChange}
+                  placeholder="Create password"
+                  minlength="8"
+                />
+              </div>
+              <div>
+                <label class="sr-only" for="confirmPassword">
+                  Confirm password:
+                </label>
+                <input
+                  class="form-control"
+                  type="password"
+                  name="confirmPassword"
+                  value={formState.confirmPassword}
+                  onChange={handleOnChange}
+                  placeholder="Confirm password"
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="login-btn"
+                  disabled={formState.loading}
+                >
+                  Create Account
+                </button>
+              </div>
+              <div className="login-account">
+                <span>Already have an account?&nbsp;</span>
+                <Link to="/login" value="Back to Login">
+                  Log in
+                </Link>
+              </div>
+            </form>
+          </Box>
+        </div>
       </div>
     </div>
   );
