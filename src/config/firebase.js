@@ -17,6 +17,7 @@ export const database = {
   users: firestore.collection("users"),
   usernames: firestore.collection("usernames"),
   board: firestore.collection("board"),
+  tags: firestore.collection("tags"),
   db: firestore,
 };
 

@@ -11,10 +11,26 @@ import HeaderBar from "./components/HeaderBar";
 import Sidebar from "./components/Sidebar/Sidebar";
 import "./pages/MainStyle.css";
 import { AuthProvider } from "./contexts/AuthContext";
+import { useState, useEffect } from "react";
+import { unionBy } from "lodash";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   function AuthenicatedRoutes() {
+    const [moduleData, setModuleData] = useState([]);
+
+    useEffect(() => {
+      const urls = [
+        "https://api.nusmods.com/v2/2021-2022/moduleInfo.json",
+        "https://api.nusmods.com/v2/2020-2021/moduleInfo.json",
+      ];
+      Promise.all(
+        urls.map((url) => fetch(url).then((response) => response.json()))
+      ).then((results) => {
+        setModuleData(unionBy(results[0], results[1], "moduleCode"));
+      });
+    }, []);
+
     return (
       <>
         <HeaderBar />
@@ -23,9 +39,13 @@ function App() {
           <div className="sub2">
             <Switch>
               <PrivateRoute exact path="/" component={PageMain} />
-              <PrivateRoute path="/planner" component={Planner} />
+              <PrivateRoute path="/planner">
+                <Planner moduleData={moduleData} />
+              </PrivateRoute>
               <PrivateRoute path="/progress" component={Progress} />
-              <PrivateRoute path="/forum" component={Forum} />
+              <PrivateRoute path="/forum">
+                <Forum moduleData={moduleData} />
+              </PrivateRoute>
               <Route path="/board/:id" component={ForumPost} />
             </Switch>
           </div>

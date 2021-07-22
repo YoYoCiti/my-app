@@ -3,7 +3,7 @@ import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import PostThread from "./AddNewThread";
 import Threads from "./Threads";
-import "./Board.css";
+// import styles from "./Board.module.css";
 
 function Board() {
   const { currentUser } = useAuth();
@@ -50,9 +50,10 @@ function Board() {
 
   return (
     <>
-      <button onClick={() => setPostNewThread(true)} disabled={!isVerified}>
+      <button onClick={() => setPostNewThread(true)} disabled={false}>
         Create Post
       </button>
+
       {postNewThread && (
         <PostThread
           threads={threads}
@@ -65,6 +66,7 @@ function Board() {
         threads={threads}
         isVerified={isVerified}
         newThreadUser={newThreadUser}
+        // styles={styles}
       />
     </>
   );
