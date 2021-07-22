@@ -1,5 +1,10 @@
 /*Produce appropriate error state for invalid entries into planner*/
 export function checkInvalidEntry(plannedModules, toAddModule, semSelected) {
+  //Undefined
+  if (!toAddModule) {
+    return { disabled: true };
+  }
+
   if (isDuplicate(plannedModules, toAddModule)) {
     return {
       disabled: true,

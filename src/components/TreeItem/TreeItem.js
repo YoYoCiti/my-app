@@ -86,6 +86,7 @@ function TreeItem(props) {
         text="Add Module"
         className="tree-item-button"
         primary={true}
+        disabled={dropdownItems.length === 0}
         items={dropdownItems}
         onItemClick={(event) => handleAddModule(event.itemIndex)}
       />
