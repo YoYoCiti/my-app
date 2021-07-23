@@ -5,7 +5,7 @@ function SelectTag(props) {
   const { tags, setTags } = props;
 
   async function handleAddTag(e) {
-    const val = e.target.value;
+    const val = e.target.value.toUpperCase();
     if (val && e.key === "Enter") {
       if (tags.length >= 5) {
         return;
