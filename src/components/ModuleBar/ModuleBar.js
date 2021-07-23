@@ -49,6 +49,7 @@ function ModuleBar(props) {
           displaySearch={displaySearch}
         />
       )}
+      <div></div>
     </div>
   );
 }

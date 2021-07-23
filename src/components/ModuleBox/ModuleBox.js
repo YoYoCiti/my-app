@@ -4,6 +4,7 @@ import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { checkInvalidEntry } from "../../utils/planner-utils";
 import { Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import "./ModuleBox.css";
 
@@ -33,6 +34,60 @@ function ModuleBox(props) {
     );
     setError(errorState);
   }, [displayedModule, plannedModules, semSelected]);
+
+  const [relevantThreads, setRelevantThreads] = useState([]);
+  useEffect(() => {
+    if (!displayedModule.moduleCode) {
+      console.log("falsy");
+      return;
+    }
+    database.tags
+      .doc(displayedModule.moduleCode)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return doc.data().threads;
+        } else {
+          return [];
+        }
+      })
+      .then((arr) => {
+        if (arr.length <= 3) {
+          console.log(arr);
+          return arr;
+        }
+        const newestThreads = arr.slice(Math.max(arr.length - 3, 0));
+        return newestThreads;
+      })
+      .then((arr) =>
+        Promise.all(
+          arr.map((id) =>
+            database.board
+              .doc(id)
+              .get()
+              .then((doc) => {
+                return doc.data();
+              })
+          )
+        ).then((results) => {
+          console.log(results);
+          setRelevantThreads(results);
+        })
+      );
+  }, [displayedModule]);
+  // console.log(displayedModule);
+  // console.log(displayedModule.moduleCode);
+
+  // useEffect(() =>
+  //   database.tags
+  //     .doc(displayedModule.moduleCode)
+  //     .get()
+  //     .then((doc) => {
+  //       if (doc.exists) {
+  //         return doc.data().threads;
+  //       }
+  //     })
+  // );
 
   function handleAddModule() {
     const newPlannedModules = [
@@ -91,6 +146,19 @@ function ModuleBox(props) {
         </>
       )}
       <p className="module-description">{displayedModule.description}</p>
+
+      <p>
+        {relevantThreads[0]
+          ? relevantThreads.map((data) => {
+              const link = `/board/${data.id}`;
+              return (
+                <li key={data.id}>
+                  <Link to={link}>{data.title}</Link>
+                </li>
+              );
+            })
+          : "no relevant threads"}
+      </p>
     </div>
   );
 }
