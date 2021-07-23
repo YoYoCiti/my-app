@@ -24,6 +24,7 @@ function Thread(props) {
       <div className={styles.threadTitle}>{thread.title}</div>
       <div className={styles.threadText}>{thread.content}</div>
       <div className={styles.threadTime}>{thread.timeDisplay}</div>
+      <div>tags: {thread.tags.join(", ")}</div>
     </div>
   );
 }

@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Thread from "../components/Board/Thread";
 
 function ForumPost(props) {
-  const [thread, setThread] = useState([]);
+  const [thread, setThread] = useState({});
   const [newPostContent, setNewPostContent] = useState();
   const [newPostUser, setNewPostUser] = useState();
   const [posts, setPosts] = useState([]);
@@ -68,12 +68,13 @@ function ForumPost(props) {
     };
     await docRef.add(newPost);
   }
-
+  console.log(thread.title);
   return (
     <div>
       <p>{thread.title}</p>
       <p>{thread.user}</p>
       <p>{thread.timeDisplay}</p>
+      <p>tags: {thread.tags}</p>
       <form onSubmit={handleAddPost}>
         <Form.Control
           as="textarea"
