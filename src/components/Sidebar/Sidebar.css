@@ -1,6 +1,6 @@
 .sidebar {
   height: 100%;
-  width: 10rem;
+  width: 160px;
   background-color: #1976d2;
   margin: 0;
   padding: 0;
@@ -17,16 +17,16 @@
   width: 100%;
   height: 60px;
   list-style-type: none;
-  margin: 0;
   display: flex;
   flex-direction: row;
   color: white;
-  justify-content: left;
-  padding-left: 30px;
+  justify-content: center;
   align-items: center;
   font-size: 18px;
+  padding-left: 10px;
   font-family: Segoe UI, Verdana, Geneva, Tahoma, sans-serif;
   text-align: center;
+  /* border: 1px solid magenta; */
 }
 
 .sidebarList #active {
@@ -40,6 +40,8 @@
 
 .sidebarList .sidebar-row .sidebar-row-text {
   margin-left: 0.4rem;
+  margin-right: 20px;
+  /* border: 1px solid red; */
 }
 .text-link {
   text-decoration: none;
