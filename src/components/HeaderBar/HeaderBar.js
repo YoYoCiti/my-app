@@ -20,7 +20,7 @@ function HeaderBar() {
   return (
     <AppBar
       position="sticky"
-      style={{ backgroundColor: deepPurple }}
+      style={{ backgroundColor: "#20215b" }}
       elevation="disabled"
     >
       <Toolbar>

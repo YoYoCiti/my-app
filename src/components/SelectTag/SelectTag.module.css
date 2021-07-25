@@ -1,0 +1,59 @@
+.tags {
+  background: white;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px 5px 0;
+  /* border: 1px solid red; */
+}
+
+.tags input {
+  /* border: 1px solid red; */
+  width: 100%;
+  min-width: 10px;
+}
+
+.selectTag {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+.selectTag li {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-weight: 300;
+  list-style: none;
+  margin-right: 3px;
+}
+
+/* .selectTags li button {
+  align-items: center;
+  appearance: none;
+  background: #333333;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  height: 15px;
+  justify-content: center;
+  line-height: 0;
+  margin-left: 8px;
+  padding: 0;
+  transform: rotate(45deg);
+  width: 15px;
+  border: 1px solid green;
+} */
+
+.selectTag li.tagInput {
+  /* border: 1px solid red; */
+  flex-grow: 1;
+  padding: 0;
+}
