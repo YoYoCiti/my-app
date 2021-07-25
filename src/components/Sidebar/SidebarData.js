@@ -32,7 +32,6 @@ export const SidebarData = [
         xmlns="http://www.w3.org/2000/svg"
         width="20"
         height="20"
-        fill="white"
         class="bi bi-journal-bookmark"
         viewBox="0 0 16 16"
         className="temptemptemp"
@@ -46,11 +45,11 @@ export const SidebarData = [
       </svg>
     ),
   },
-  {
-    title: "Progress",
-    path: "/progress",
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Progress",
+  //   path: "/progress",
+  //   cName: "nav-text",
+  // },
   {
     title: "Forum",
     path: "/forum",
@@ -68,5 +67,10 @@ export const SidebarData = [
         <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
       </svg>
     ),
+  },
+  {
+    title: "Settings",
+    path: "/settings",
+    cName: "nav-text",
   },
 ];
