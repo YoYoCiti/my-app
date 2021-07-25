@@ -82,7 +82,6 @@ function PostThread(props) {
             onChange={(event) => setNewThreadText(event.target.value)}
           />
         </Form.Group>
-        <span>Select Tag:</span>
         <SelectTag tags={tags} setTags={setTags} />
         <br />
         <button

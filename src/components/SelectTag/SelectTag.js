@@ -1,12 +1,7 @@
 import React, { useRef } from "react";
 import { BsX } from "react-icons/bs";
 import Badge from "react-bootstrap/Badge";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
-import Form from "react-bootstrap/Form";
 import styles from "./SelectTag.module.css";
-import { lightGreen } from "@material-ui/core/colors";
-import { TextareaAutosize } from "@material-ui/core";
 
 function SelectTag(props) {
   const tagInput = useRef(null);
@@ -37,28 +32,32 @@ function SelectTag(props) {
 
   return (
     <div className={styles.tags}>
+      <span>Add Tags:</span>
       <ul className={styles.selectTag}>
         {tags.map((tag, i) => (
           <li>
-            <Badge pill variant="info" key={tag}>
-              {tag}
+            <Badge pill variant="info" className="m-auto" key={tag}>
+              {tag}{" "}
               {/* <button type="button" onClick={() => removeTag(i)}>
               Remove
             </button> */}
-              <BsX tyle="button" onClick={() => removeTag(i)} />
+              <BsX
+                type="button"
+                // style={{ border: "1px solid red" }}
+                onClick={() => removeTag(i)}
+                className="m-auto"
+              />
             </Badge>
           </li>
         ))}
 
         <li className={styles.tagInput}>
-          <OverlayTrigger
-            placement="bottom"
-            delay={{ show: 500, hide: 200 }}
-            overlay={<Tooltip id="overlay-tooltip">hover</Tooltip>}
-            disabled
-          >
-            <input type="text" onKeyDown={handleAddTag} ref={tagInput} />
-          </OverlayTrigger>
+          <input
+            type="text"
+            onKeyDown={handleAddTag}
+            ref={tagInput}
+            placeholder="Type in tags (e.g. CS1101S, GER1000) Enter to confirm."
+          />
         </li>
       </ul>
     </div>
