@@ -3,8 +3,12 @@ import { database } from "../../config/firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import PostThread from "./AddNewThread";
 import Threads from "./Threads";
-// import styles from "./Board.module.css";
+import styles from "./Board.module.css";
+import { Button, Row, Col } from "react-bootstrap";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import FilterBar from "../FilterBar";
+import { BsQuestionCircle } from "react-icons/bs";
 
 function Board() {
   const { currentUser } = useAuth();
@@ -53,10 +57,39 @@ function Board() {
   console.log(filteredThreads);
   return (
     <>
-      <FilterBar setFilteredThreads={setFilteredThreads} />
-      <button onClick={() => setPostNewThread(true)} disabled={false}>
-        Create Post
-      </button>
+      <Row>
+        <Col>
+          <FilterBar
+            setFilteredThreads={setFilteredThreads}
+            className={styles.filterBar}
+          />
+        </Col>
+
+        <div>
+          <Col>
+            <Button
+              style={{ backgroundColor: "pink", color: " black" }}
+              onClick={() => setPostNewThread(true)}
+              className={styles.threadButton}
+              disabled={isVerified}
+            >
+              Create Post
+            </Button>{" "}
+            <OverlayTrigger
+              placement="bottom"
+              delay={{ show: 500, hide: 200 }}
+              overlay={
+                <Tooltip id="overlay-tooltip">
+                  Users can only create posts after verifying their email.
+                  Resend verification email in settings.
+                </Tooltip>
+              }
+            >
+              <BsQuestionCircle />
+            </OverlayTrigger>
+          </Col>
+        </div>
+      </Row>
 
       {postNewThread && (
         <PostThread

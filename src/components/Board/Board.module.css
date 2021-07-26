@@ -32,6 +32,13 @@
   cursor: pointer;
 }
 
-.Box {
-  background-color: red;
+.threadButton {
+  border: 1px solid green;
 }
+
+.filterBar {
+  border: 2px solid red;
+}
+/* .Box {
+  background-color: red;
+} */

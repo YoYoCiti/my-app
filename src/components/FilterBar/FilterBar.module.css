@@ -1,0 +1,22 @@
+.selectTag li {
+  align-items: center;
+  color: rgb(0, 0, 0);
+  display: flex;
+  font-weight: 400;
+  list-style: none;
+  margin-right: 7px;
+  /* font-size: 18px; */
+  background: rgb(252, 243, 126);
+  padding: 1px 9px;
+  border-radius: 10px;
+}
+
+.selectTag {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: top;
+  padding: 5px;
+}

@@ -68,9 +68,9 @@ export const SidebarData = [
       </svg>
     ),
   },
-  {
-    title: "Settings",
-    path: "/settings",
-    cName: "nav-text",
-  },
+  // {
+  //   title: "Settings",
+  //   path: "/settings",
+  //   cName: "nav-text",
+  // },
 ];

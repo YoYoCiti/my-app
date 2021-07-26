@@ -13,17 +13,18 @@ function Thread(props) {
   return (
     <div className={styles.threadBox} key={thread.id} onClick={handleClick}>
       <div>
-        <span className={styles.threadUser}>{thread.user}&nbsp;</span>
+        Posted by <span className={styles.threadUser}>{thread.user}&nbsp;</span>
         <TimeAgo
           date={thread.timeDisplay}
           formatter={formatter}
           minPeriod="MINUTE"
           className={styles.threadTime}
-        />
+        />{" "}
+        ago
       </div>
       <div className={styles.threadTitle}>{thread.title}</div>
       <div className={styles.threadText}>{thread.content}</div>
-      <div className={styles.threadTime}>{thread.timeDisplay}</div>
+      {/* <div className={styles.threadTime}>{thread.timeDisplay}</div> */}
       <div>tags: {thread.tags.join(", ")}</div>
     </div>
   );

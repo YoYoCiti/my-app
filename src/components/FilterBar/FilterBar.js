@@ -1,6 +1,11 @@
 import React, { useRef, useState } from "react";
 import _ from "lodash";
+import Form from "react-bootstrap/Form";
+import { Col, Row, Button } from "react-bootstrap";
+import { BsX } from "react-icons/bs";
+import Badge from "react-bootstrap/Badge";
 import { database } from "../../config/firebase";
+import styles from "./FilterBar.module.css";
 
 function FilterBar(props) {
   const tagInput = useRef(null);
@@ -64,18 +69,27 @@ function FilterBar(props) {
 
   return (
     <>
-      {tags.map((tag, i) => (
-        <ul>
+      <Row>
+        <Col sm={4}>
+          <Form.Control
+            type="text"
+            onKeyDown={handleAddTag}
+            ref={tagInput}
+            placeholder="(e.g. GER1000) Enter to confirm tags"
+          />
+        </Col>
+        <Button onClick={handleFilter} variant="warning">
+          Filter by Tags
+        </Button>
+      </Row>
+      <ul className={styles.selectTag}>
+        {tags.map((tag, i) => (
           <li key={tag}>
-            {tag}
-            <button type="button" onClick={() => removeTag(i)}>
-              Remove
-            </button>
+            {tag}{" "}
+            <BsX type="button" className="ml-1" onClick={() => removeTag(i)} />
           </li>
-        </ul>
-      ))}
-      <input type="text" onKeyDown={handleAddTag} ref={tagInput} />
-      <button onClick={handleFilter}>Filter by Tags</button>
+        ))}
+      </ul>
     </>
   );
 }

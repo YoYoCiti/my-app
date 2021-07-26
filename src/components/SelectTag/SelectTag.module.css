@@ -1,6 +1,6 @@
 .tags {
   background: white;
-  border: 1px solid #d6d6d6;
+  /* border: 1px solid #d6d6d6; */
   border-radius: 2px;
   display: flex;
   flex-wrap: wrap;
@@ -20,9 +20,11 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  /* border: 1px solid red; */
 }
 
+.BsX {
+  border: 1px solid rgb(143, 74, 43);
+}
 .selectTag li {
   align-items: center;
   color: white;
@@ -30,6 +32,7 @@
   font-weight: 300;
   list-style: none;
   margin-right: 3px;
+  font-size: 18px;
 }
 
 /* .selectTags li button {
@@ -56,4 +59,9 @@
   /* border: 1px solid red; */
   flex-grow: 1;
   padding: 0;
+  font-size: 16px;
+}
+
+.BsX {
+  border: 1px solid red;
 }
