@@ -38,7 +38,7 @@ function ModuleBox(props) {
   const [relevantThreads, setRelevantThreads] = useState([]);
   useEffect(() => {
     if (!displayedModule.moduleCode) {
-      console.log("falsy");
+      setRelevantThreads([]);
       return;
     }
     database.tags
@@ -119,7 +119,6 @@ function ModuleBox(props) {
       .doc(currentUser?.uid)
       .update({ plannedModules: newPlannedModules });
   }
-
   return (
     <div>
       <p className="module-title">
@@ -147,18 +146,17 @@ function ModuleBox(props) {
       )}
       <p className="module-description">{displayedModule.description}</p>
 
-      <p>
-        {relevantThreads[0]
-          ? relevantThreads.map((data) => {
-              const link = `/board/${data.id}`;
-              return (
-                <li key={data.id}>
-                  <Link to={link}>{data.title}</Link>
-                </li>
-              );
-            })
-          : "no relevant threads"}
-      </p>
+      <div className="revContainer">
+        {relevantThreads[0] &&
+          relevantThreads.map((data) => {
+            const link = `/board/${data.id}`;
+            return (
+              <li key={data.id} className="revThread">
+                <Link to={link}>{data.title}</Link>
+              </li>
+            );
+          })}
+      </div>
     </div>
   );
 }

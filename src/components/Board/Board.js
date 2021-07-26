@@ -19,7 +19,7 @@ function Board() {
   const [filteredThreads, setFilteredThreads] = useState([]);
 
   useEffect(() => {
-    setIsVerified(currentUser.emailVerified);
+    setIsVerified(currentUser?.emailVerified);
     database.users
       .doc(currentUser?.uid)
       .get()
@@ -57,7 +57,7 @@ function Board() {
   console.log(filteredThreads);
   return (
     <>
-      <Row>
+      <Row className={styles.topBar}>
         <Col>
           <FilterBar
             setFilteredThreads={setFilteredThreads}

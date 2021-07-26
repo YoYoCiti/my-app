@@ -3,6 +3,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { database } from "../config/firebase";
 import ProfileCard from "../components/ProfileCard";
 import ProgressCard from "../components/ProgressCard";
+import { Button } from "react-bootstrap";
+import firebase from "firebase/app";
 
 function PageMain() {
   const { currentUser } = useAuth();
@@ -31,9 +33,14 @@ function PageMain() {
     });
   }, [currentUser]);
 
+  function handleOnClick() {
+    firebase.auth().currentUser.sendEmailVerification();
+    return;
+  }
+
   return (
     <div className="planner-backg">
-      <div style={{ marginLeft: "2%" }}>
+      <div style={{ marginLeft: "2%", width: "60%" }}>
         <ProfileCard
           username={username}
           yearOfStudy={yearOfStudy}
@@ -45,6 +52,11 @@ function PageMain() {
           plannedModules={plannedModules}
           yearOfStudy={yearOfStudy}
         />
+      </div>
+      <div>
+        <Button style={{ margin: "15px" }} onClick={handleOnClick}>
+          Resend Verification Email
+        </Button>
       </div>
     </div>
   );

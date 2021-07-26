@@ -1,5 +1,6 @@
 .planner-backg {
   background-color: #fafafa;
+  display: flex;
 }
 
 .planit-margin-wrapper {
@@ -15,5 +16,33 @@
 .sub2 {
   grid-column-start: 2;
   grid-column-end: 3;
-  padding: 10px;
+  /* padding: 10px; */
+}
+
+.postDetail {
+  margin: 20px;
+  padding: 30px 20px 10px;
+  background-color: white;
+}
+
+.postTitle {
+  font-weight: 500;
+  display: block;
+  margin: 0;
+  font-size: 18px;
+}
+
+.postUser {
+  font-weight: 350;
+  font-size: 14px;
+}
+
+.postTime {
+  font-weight: 150;
+  font-size: 12px;
+  float: right;
+}
+
+.postContent {
+  margin-bottom: 20px;
 }

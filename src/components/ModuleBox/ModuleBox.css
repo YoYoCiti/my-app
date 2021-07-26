@@ -14,7 +14,7 @@
   font-size: 16px;
   text-align: justify;
   padding-top: 0;
-  padding-bottom: 5rem;
+  padding-bottom: 3rem;
 }
 
 .module-credit {
@@ -33,4 +33,23 @@
   padding-left: 1rem;
   padding-right: 1rem;
   text-align: center;
+}
+
+.revThread {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-weight: 300;
+  list-style: none;
+  margin-right: 3px;
+  font-size: 18px;
+  /* border: 1px solid green; */
+  margin: 5px;
+  padding: 0 5px;
+  background-color: rgb(241, 243, 255);
+}
+
+.revContainer {
+  padding: 0 1rem;
+  margin-bottom: 3rem;
 }

@@ -42,3 +42,25 @@
 /* .Box {
   background-color: red;
 } */
+
+.topBar {
+  padding: 20px;
+}
+
+.displayTag {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.displayTag li {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-weight: 300;
+  list-style: none;
+  margin-right: 3px;
+  font-size: 14px;
+}

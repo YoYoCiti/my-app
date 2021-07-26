@@ -13,8 +13,8 @@ function ProgressCard(props) {
       plannedModules.slice().forEach((element, index) => {
         element.acadSemester.forEach((mod) => {
           if (mod.moduleCode !== "") {
-            console.log(index);
-            console.log(yearOfStudy);
+            // console.log(index);
+            // console.log(yearOfStudy);
             if (index < yearOfStudy) {
               MCsTaken += mod.moduleCredit;
             } else {
