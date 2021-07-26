@@ -12,15 +12,14 @@ function Comment(props) {
 
   return (
     <div className={styles.threadBox} key={thread.id} onClick={handleClick}>
-      <div>
-        Posted by <span className={styles.threadUser}>{thread.user}&nbsp;</span>
+      <div className={styles.threadUser}>
+        {thread.user}&nbsp;
         <TimeAgo
           date={thread.timeDisplay}
           formatter={formatter}
           minPeriod="MINUTE"
           className={styles.threadTime}
         />{" "}
-        ago
       </div>
       <div className={styles.threadTitle}>{thread.title}</div>
       <div className={styles.threadText}>{thread.content}</div>

@@ -71,20 +71,26 @@ function ForumPost(props) {
   console.log(thread.title);
   return (
     <div>
-      <p>{thread.title}</p>
-      <p>{thread.user}</p>
-      <p>{thread.timeDisplay}</p>
-      <p>tags: {thread.tags}</p>
-      <form onSubmit={handleAddPost}>
-        <Form.Control
-          as="textarea"
-          rows={4}
-          value={newPostContent}
-          placeholder="What are your thoughts?"
-          onChange={(event) => setNewPostContent(event.target.value)}
-        />
-        <input type="submit" value="Comment" />
-      </form>
+      <div className="postDetail">
+        <div className="postUser">
+          Posted by {thread.user}{" "}
+          <span className="postTime">{thread.timeDisplay}</span>
+        </div>
+        <div className="postTitle">{thread.title}</div>
+        <div className="postContent">{thread.content}</div>
+
+        {/* <p>tags: {thread.tags}</p> */}
+        <form onSubmit={handleAddPost}>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            value={newPostContent}
+            placeholder="What are your thoughts?"
+            onChange={(event) => setNewPostContent(event.target.value)}
+          />
+          <input type="submit" value="Comment" />
+        </form>
+      </div>
       {posts ? (
         <div>
           {posts.map((post, index) => {
