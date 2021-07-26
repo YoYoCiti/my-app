@@ -68,10 +68,10 @@ function Board() {
         <div>
           <Col>
             <Button
-              // style={{ backgroundColor: "pink", color: " black" }}
+              style={{ backgroundColor: "pink", color: " black" }}
               onClick={() => setPostNewThread(true)}
               className={styles.threadButton}
-              disabled={!isVerified}
+              disabled={isVerified}
             >
               Create Post
             </Button>{" "}
