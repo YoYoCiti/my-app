@@ -52,7 +52,7 @@ function PageForgotPassword() {
 
   return (
     <>
-      <div className="login-body">
+      <div className="login-body-container">
         <Box>
           <h2 className="login-header">Password Reset</h2>
           <form

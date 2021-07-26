@@ -1,5 +1,6 @@
 .planner-backg {
   background-color: #fafafa;
+  display: flex;
 }
 
 .planit-margin-wrapper {
@@ -15,5 +16,5 @@
 .sub2 {
   grid-column-start: 2;
   grid-column-end: 3;
-  padding: 10px;
+  /* padding: 10px; */
 }

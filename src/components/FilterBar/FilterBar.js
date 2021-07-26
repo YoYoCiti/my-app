@@ -70,7 +70,7 @@ function FilterBar(props) {
   return (
     <>
       <Row>
-        <Col sm={4}>
+        <Col sm={5}>
           <Form.Control
             type="text"
             onKeyDown={handleAddTag}

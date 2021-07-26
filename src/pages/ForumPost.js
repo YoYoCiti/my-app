@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { database } from "../config/firebase";
 import Form from "react-bootstrap/Form";
-import Thread from "../components/Board/Thread";
+import Comment from "../components/Board/Comment";
 
 function ForumPost(props) {
   const [thread, setThread] = useState({});
@@ -88,7 +88,7 @@ function ForumPost(props) {
       {posts ? (
         <div>
           {posts.map((post, index) => {
-            return <Thread thread={post} key={index} />;
+            return <Comment thread={post} key={index} />;
           })}
         </div>
       ) : (
