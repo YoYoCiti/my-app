@@ -71,7 +71,7 @@ function Board() {
               style={{ backgroundColor: "pink", color: " black" }}
               onClick={() => setPostNewThread(true)}
               className={styles.threadButton}
-              disabled={isVerified}
+              disabled={!isVerified}
             >
               Create Post
             </Button>{" "}
@@ -81,7 +81,7 @@ function Board() {
               overlay={
                 <Tooltip id="overlay-tooltip">
                   Users can only create posts after verifying their email.
-                  Resend verification email in settings.
+                  Resend verification email in the home page.
                 </Tooltip>
               }
             >
