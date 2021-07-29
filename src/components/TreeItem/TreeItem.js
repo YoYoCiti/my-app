@@ -15,14 +15,14 @@ function TreeItem(props) {
   } = props;
   const { currentUser } = useAuth();
   const dropdownItems = [
-    "Y1S1",
-    "Y1S2",
-    "Y2S1",
-    "Y2S2",
-    "Y3S1",
-    "Y3S2",
-    "Y4S1",
-    "Y4S2",
+    { text: "Y1S1", sem: 0 },
+    { text: "Y1S2", sem: 1 },
+    { text: "Y2S1", sem: 2 },
+    { text: "Y2S2", sem: 3 },
+    { text: "Y3S1", sem: 4 },
+    { text: "Y3S2", sem: 5 },
+    { text: "Y4S1", sem: 6 },
+    { text: "Y4S2", sem: 7 },
   ].filter(
     (sem, index) =>
       !checkInvalidEntry(
@@ -88,7 +88,7 @@ function TreeItem(props) {
         primary={true}
         disabled={dropdownItems.length === 0}
         items={dropdownItems}
-        onItemClick={(event) => handleAddModule(event.itemIndex)}
+        onItemClick={(event) => handleAddModule(event.item.sem)}
       />
       <Button
         variant="secondary"
