@@ -7,11 +7,13 @@ import { BiPencil, BiComment, BiTrashAlt } from "react-icons/bi";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { database } from "../../config/firebase";
+import Form from "react-bootstrap/Form";
 
 function Thread(props) {
   const { thread, formatter, newThreadUser } = props;
   const [show, setShow] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState("");
   const history = useHistory();
 
   function handleClick() {
@@ -20,6 +22,12 @@ function Thread(props) {
 
   function handleEditClick() {
     setEditing(true);
+    setEditText(thread.content);
+  }
+
+  function handleSave() {
+    database.board.doc(thread.id).update({ content: editText });
+    setEditing(false);
   }
 
   function deleteThread() {
@@ -31,7 +39,7 @@ function Thread(props) {
 
   return (
     <div className={styles.threadBox} key={thread.id}>
-      <div className={styles.threadBoxL} onClick={handleClick}>
+      <div className={styles.threadBoxL} onClick={editing ? "" : handleClick}>
         <div className={styles.threadUser}>
           Posted by <span>{thread.user}&nbsp;</span>
           <TimeAgo
@@ -43,7 +51,29 @@ function Thread(props) {
           ago
         </div>
         <div className={styles.threadTitle}>{thread.title}</div>
-        <div className={styles.threadText}>{thread.content}</div>
+        {editing ? (
+          <>
+            <Form.Control
+              as="textarea"
+              rows={2}
+              value={editText}
+              placeholder="Text (optional)"
+              onChange={(event) => setEditText(event.target.value)}
+            />
+            <Button size="sm" variant="outline-secondary" onClick={handleSave}>
+              Save
+            </Button>{" "}
+            <Button
+              size="sm"
+              variant="outline-danger"
+              onClick={() => setEditing(false)}
+            >
+              Cancel
+            </Button>
+          </>
+        ) : (
+          <div className={styles.threadText}>{thread.content}</div>
+        )}
 
         {/* <div className={styles.threadTime}>{thread.timeDisplay}</div> */}
         {thread.tags[0] && (
