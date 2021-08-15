@@ -4,11 +4,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import PostThread from "./AddNewThread";
 import Threads from "./Threads";
 import styles from "./Board.module.css";
-import { Button, Row, Col } from "react-bootstrap";
+import { Button, Col } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import FilterBar from "../FilterBar";
 import { BsQuestionCircle } from "react-icons/bs";
+import Modal from "react-bootstrap/Modal";
 
 function Board() {
   const { currentUser } = useAuth();
@@ -38,10 +39,11 @@ function Board() {
           id: doc.id,
           ...doc.data(),
         }));
+        console.log(data);
         setThreads(data);
       });
   }, []);
-
+  console.log(filteredThreads);
   useEffect(() => {
     database.board.orderBy("createdAt", "desc").onSnapshot((querySnapshot) => {
       const _threads = [];
@@ -55,56 +57,89 @@ function Board() {
     });
   }, []);
   console.log(filteredThreads);
+
   return (
     <>
-      <Row className={styles.topBar}>
-        <Col>
-          <FilterBar
-            setFilteredThreads={setFilteredThreads}
-            className={styles.filterBar}
-          />
-        </Col>
-
-        <div>
+      <div>
+        <div className={styles.topBar}>
           <Col>
-            <Button
-              style={{ backgroundColor: "pink", color: " black" }}
-              onClick={() => setPostNewThread(true)}
-              className={styles.threadButton}
-              disabled={!isVerified}
-            >
-              Create Post
-            </Button>{" "}
-            <OverlayTrigger
-              placement="bottom"
-              delay={{ show: 500, hide: 200 }}
-              overlay={
-                <Tooltip id="overlay-tooltip">
-                  Users can only create posts after verifying their email.
-                  Resend verification email in the home page.
-                </Tooltip>
-              }
-            >
-              <BsQuestionCircle />
-            </OverlayTrigger>
+            <FilterBar
+              setFilteredThreads={setFilteredThreads}
+              className={styles.filterBar}
+            />
           </Col>
-        </div>
-      </Row>
 
-      {postNewThread && (
+          <div>
+            <Col>
+              <Button
+                style={{ backgroundColor: "pink", color: " black" }}
+                onClick={() => setPostNewThread(true)}
+                className={styles.threadButton}
+                disabled={!isVerified}
+              >
+                Create Post
+              </Button>{" "}
+              <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 500, hide: 200 }}
+                overlay={
+                  <Tooltip id="overlay-tooltip">
+                    Users can only create posts after verifying their email.
+                    Resend verification email in the home page.
+                  </Tooltip>
+                }
+              >
+                <BsQuestionCircle />
+              </OverlayTrigger>
+            </Col>
+          </div>
+        </div>
+        {/* 
+        {postNewThread && (
+          <PostThread
+            threads={threads}
+            setThreads={setThreads}
+            newThreadUser={newThreadUser}
+            setPostNewThread={setPostNewThread}
+          />
+        )} */}
+
+        {filteredThreads === "nil" ? (
+          "No relevant threads"
+        ) : (
+          <Threads
+            threads={filteredThreads[0] ? filteredThreads : threads}
+            isVerified={isVerified}
+            newThreadUser={newThreadUser}
+            // styles={styles}
+          />
+        )}
+      </div>
+
+      <Modal
+        centered
+        show={postNewThread}
+        onHide={() => setPostNewThread(false)}
+      >
         <PostThread
           threads={threads}
           setThreads={setThreads}
           newThreadUser={newThreadUser}
           setPostNewThread={setPostNewThread}
         />
-      )}
-      <Threads
-        threads={filteredThreads[0] ? filteredThreads : threads}
-        isVerified={isVerified}
-        newThreadUser={newThreadUser}
-        // styles={styles}
-      />
+        {/* <Modal.Body>
+          Are you sure you want to delete this thread? This action cannot be
+          undone.{" "}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShow(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={deleteThread}>
+            Delete
+          </Button>
+        </Modal.Footer> */}
+      </Modal>
     </>
   );
 }

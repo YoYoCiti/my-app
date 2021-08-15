@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { database } from "../../config/firebase";
-import Box from "../Box";
 import Form from "react-bootstrap/Form";
 import SelectTag from "../SelectTag";
 import styles from "./Board.module.css";
@@ -58,7 +57,7 @@ function PostThread(props) {
   }
 
   return (
-    <Box>
+    <div className={styles.Box}>
       <div
         onSubmit={(e) => {
           e.preventDefault();
@@ -95,7 +94,7 @@ function PostThread(props) {
           Post
         </button>
       </div>
-    </Box>
+    </div>
   );
 }
 

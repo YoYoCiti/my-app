@@ -5,7 +5,7 @@ import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 
 function Threads(props) {
   const formatter = buildFormatter(enStrings);
-  const { threads, isVerified, newThreadUser, styles } = props;
+  const { threads, isVerified, newThreadUser } = props;
 
   if (!threads.length) {
     return <p>No threads here yet</p>;

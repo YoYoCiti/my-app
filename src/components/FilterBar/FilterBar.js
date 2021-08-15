@@ -3,7 +3,6 @@ import _ from "lodash";
 import Form from "react-bootstrap/Form";
 import { Col, Row, Button } from "react-bootstrap";
 import { BsX } from "react-icons/bs";
-import Badge from "react-bootstrap/Badge";
 import { database } from "../../config/firebase";
 import styles from "./FilterBar.module.css";
 
@@ -50,11 +49,16 @@ function FilterBar(props) {
           })
       )
     ).then((results) => {
-      getFilteredThreads(filtered(results));
+      getFilteredThreads(filtered(results), tags.length);
     });
   }
 
-  function getFilteredThreads(threadsId) {
+  function getFilteredThreads(threadsId, length) {
+    if (!threadsId[0] && length > 0) {
+      console.log("no relevant threads");
+      setFilteredThreads("nil");
+      return;
+    }
     Promise.all(
       threadsId.map((id) =>
         database.board
@@ -64,7 +68,10 @@ function FilterBar(props) {
             return doc.data();
           })
       )
-    ).then((results) => setFilteredThreads(results));
+    ).then((results) => {
+      console.log(typeof results);
+      setFilteredThreads(results);
+    });
   }
 
   return (
