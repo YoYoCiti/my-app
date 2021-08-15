@@ -5,18 +5,20 @@
 
 .planit-margin-wrapper {
   display: grid;
-  grid-template-columns: 10rem 1fr;
+  grid-template-columns: 10rem 2fr;
 }
 
 .sub1 {
   grid-column-start: 1;
   grid-column-end: 2;
+  position: relative;
 }
 
 .sub2 {
   grid-column-start: 2;
   grid-column-end: 3;
   /* padding: 10px; */
+  position: relative;
 }
 
 .postDetail {
