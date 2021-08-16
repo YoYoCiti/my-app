@@ -17,6 +17,7 @@ function Comment(props) {
       .doc(thread.postId)
       .delete()
       .then(() => console.log("successfully deleted comment"));
+    setShow(false);
   }
   return (
     <div className={styles.threadBox} key={thread.id}>
