@@ -10,6 +10,7 @@ function ForumPost(props) {
   const [newPostUser, setNewPostUser] = useState();
   const [posts, setPosts] = useState([]);
   const { currentUser } = useAuth();
+  console.log(thread.id);
   const docRef = database.board.doc(thread.id).collection("post");
   useEffect(() => {
     database.board
@@ -66,9 +67,12 @@ function ForumPost(props) {
       createdAt: date.valueOf(),
       threadId: thread.id,
     };
-    await docRef.add(newPost);
+    await docRef.add(newPost).then((docRef) => {
+      docRef.update({ postId: docRef.id });
+    });
+    setNewPostContent("");
   }
-  console.log(thread.title);
+
   return (
     <div>
       <div className="postDetail">
@@ -94,7 +98,9 @@ function ForumPost(props) {
       {posts ? (
         <div>
           {posts.map((post, index) => {
-            return <Comment thread={post} key={index} />;
+            return (
+              <Comment thread={post} key={index} newPostUser={newPostUser} />
+            );
           })}
         </div>
       ) : (
