@@ -8,6 +8,8 @@ import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
 import { database } from "../../config/firebase";
 import Form from "react-bootstrap/Form";
+import firebase from "firebase/app";
+import "firebase/firestore";
 
 function Thread(props) {
   const { thread, formatter, newThreadUser } = props;
@@ -30,11 +32,36 @@ function Thread(props) {
     setEditing(false);
   }
 
-  function deleteThread() {
-    database.board
+  async function deleteThread() {
+    await database.board
       .doc(thread.id)
       .delete()
       .then(() => console.log("successfully deleted"));
+
+    // await thread.tags.forEach((tag) => {
+    //   console.log(tag);
+    //   database.tags
+    //     .doc("1")
+    //     .get()
+    //     .update({
+    //       threads: firebase.firestore.FieldValue.arrayRemove(
+    //         "G8tinVfqQNwR0z8iecbJ"
+    //       ),
+    //     });
+    // });
+    var batch = database.db.batch();
+    thread.tags.forEach((doc) => {
+      var docRef = database.tags.doc(doc);
+      docRef.get().then((docSnapshot) => {
+        if (docSnapshot.exists) {
+          docRef.update({
+            threads: firebase.firestore.FieldValue.arrayRemove(thread.id),
+          });
+        }
+      });
+      batch.update(docRef, { doc });
+    });
+    batch.commit();
   }
 
   return (
@@ -89,7 +116,7 @@ function Thread(props) {
         )}
       </div>
       <div className={styles.threadBoxR}>
-        <BiComment className={styles.threadIcon} size={22} />
+        {/* <BiComment className={styles.threadIcon} size={22} /> */}
         {newThreadUser === thread.user && (
           <>
             <BiPencil

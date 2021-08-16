@@ -10,6 +10,7 @@ function Threads(props) {
   if (!threads.length) {
     return <p>No threads here yet</p>;
   }
+  console.log(threads);
 
   return (
     <>
